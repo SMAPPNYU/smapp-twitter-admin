@@ -1,10 +1,9 @@
-from flask import Blueprint
 from flask import g, session, request, url_for, flash
-from flask import redirect, render_template
+from flask import redirect
 from flask_oauthlib.client import OAuth
+from smapp_twitter_admin import app
 
-twitter_auth_blueprint = Blueprint('twitter', __name__)
-oauth = OAuth(twitter_auth_blueprint)
+oauth = OAuth(app)
 
 twitter = oauth.remote_app(
     'twitter',
@@ -21,24 +20,25 @@ def get_twitter_token():
         resp = session['twitter_oauth']
         return resp['oauth_token'], resp['oauth_token_secret']
 
-@twitter_auth_blueprint.before_request
+@app.before_request
 def before_request():
     g.user = None
     if 'twitter_oauth' in session:
         g.user = session['twitter_oauth']
 
-@twitter_auth_blueprint.route('/login')
+@app.route('/login')
 def login():
+    print("hahaha")
     callback_url = url_for('.oauthorized', next=request.args.get('next'))
     return twitter.authorize(callback=callback_url or request.referrer or None)
 
 
-@twitter_auth_blueprint.route('/logout')
+@app.route('/logout')
 def logout():
     session.pop('twitter_oauth', None)
     return redirect(url_for('welcome_view'))
 
-@twitter_auth_blueprint.route('/oauthorized')
+@app.route('/oauthorized')
 @twitter.authorized_handler
 def oauthorized(resp):
     if resp is None:
