@@ -1,5 +1,5 @@
 from smapp_twitter_admin import app
-from flask import session, render_template
+from flask import session, render_template, redirect
 
 @app.route('/')
 def welcome_view():
