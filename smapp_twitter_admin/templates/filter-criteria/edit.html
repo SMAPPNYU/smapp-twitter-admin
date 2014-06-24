@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h3>Edit Filter Criteria</h3>
+    <div class="well">
+      <form method="POST" action="/" class="form form-horizontal">
+        <fieldset>
+          {{ form.hidden_tag() }}
+          <div class="control-group">
+            <div class="control-label">{{ form.filter_type.label }}</div>
+
+            <div class="controls">
+              {{ form.filter_type() }}
+              <span class="help-block">
+                <dl>
+                  <dt>track</dt>
+                  <dd>keyword search</dd>
+                  <dt>follow</dt>
+                  <dd>user id to follow</dd>
+                  <dt>geo</dt>
+                  <dd>coordinate box</dd>
+                </dl>
+              </span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">{{ form.value.label }}</div>
+            <div class="controls">
+              {{ form.value(size=20) }}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">{{ form.active.label }}</div>
+            <div class="controls">
+              {{ form.active(size=20) }}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">{{ form.date_added.label }}</div>
+            <div class="controls">
+              {{ form.date_added(size=20) }}
+            </div>
+          </div>
+          <div class="controls">
+            <input type="submit" value="Save" class="button btn-primary">
+          </div>
+        </fieldset>
+    </form>
+  </div>
+{% endblock %}
