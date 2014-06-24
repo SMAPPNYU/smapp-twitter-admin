@@ -3,7 +3,8 @@ from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
 from smapp_twitter_admin.forms import FilterCriterionForm
-from flask import _request_ctx_stack, session, render_template, redirect, request
+from flask import _request_ctx_stack, session, render_template, redirect, request, url_for
+from datetime import datetime
 
 @app.before_request
 def user_login_check():
@@ -44,12 +45,17 @@ def filter_criteria_index():
 def filter_criteria_show(collection_name, id):
     filter_criterion = FilterCriteria.find_by_collection_name_and_object_id(collection_name, id)
     form = FilterCriterionForm(**filter_criterion)
-    return render_template('filter-criteria/edit.html', form=form)
+    return render_template('filter-criteria/edit.html', form=form, collection_name=collection_name, id=id)
 
 @app.route('/filter-criteria/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_edit(collection_name, id):
-    return "edit fc"
+    form = FilterCriterionForm(request.form)
+    if form.validate():
+        form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
+        FilterCriteria.update(collection_name, id, form.data)
+        return redirect(url_for('collections', collection_name=collection_name))
+    return redirect(url_for('filter_criteria_show', collection_name=collection_name, id=id))
 
-@app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['post'])
+@app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_delete(collection_name, id):
     return "delete fc"

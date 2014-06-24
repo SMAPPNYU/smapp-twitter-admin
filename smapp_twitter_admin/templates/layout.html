@@ -12,6 +12,7 @@
           <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
           <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" rel="stylesheet">
           <link href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='datepicker/css/datepicker.css') }}" rel="stylesheet">
           <style>
             body {
               padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -46,6 +47,7 @@
     </div> <!-- /container -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
     <script>
       url = window.location;
       $('ul.nav a').filter(function() {
