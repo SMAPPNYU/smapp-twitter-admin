@@ -2,7 +2,7 @@ from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
-from flask import session, render_template, redirect, request
+from flask import _request_ctx_stack, session, render_template, redirect, request
 
 @app.before_request
 def user_login_check():
@@ -39,6 +39,15 @@ def collections(collection_name):
 def filter_criteria_index():
     return render_template('filter-criteria/index.html')
 
-@app.route('/filter-criteria/<id>')
-def filter_criteria_edit():
-    pass
+@app.route('/filter-criteria/<collection_name>/<id>', methods=['GET'])
+def filter_criteria_show(collection_name, id):
+    filter_criteria = FilterCriteria.find_by_collection_name_and_object_id(collection_name, id)
+    return render_template('filter-criteria/edit.html', filter_criteria=filter_criteria)
+
+@app.route('/filter-criteria/<collection_name>/<id>', methods=['POST'])
+def filter_criteria_edit(collection_name, id):
+    return "edit fc"
+
+@app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['post'])
+def filter_criteria_delete(collection_name, id):
+    return "delete fc"

@@ -1,4 +1,5 @@
 from smapp_twitter_admin import app
+from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 _client = MongoClient(app.config['db']['host'], app.config['db'].get('port', 27017))
@@ -8,18 +9,18 @@ if 'username' in app.config['db'] and 'password' in app.config['db']:
 
 def _filter_criteria_collection_name(collection_name):
     if 'collection-name-exceptions' in app.config and collection_name in app.config['collection-name-exceptions']:
-        return app.config['collection-name-exceptions']['collection_name'].get('filter-criteria', 'tweets_filter_criteria')
+        return app.config['collection-name-exceptions'][collection_name].get('filter-criteria', 'tweets_filter_criteria')
     return 'tweets_filter_criteria'
 
 def _tweets_collection_name(collection_name):
     if 'collection-name-exceptions' in app.config and collection_name in app.config['collection-name-exceptions']:
-        return app.config['collection-name-exceptions']['collection_name'].get('tweets', 'tweets')
+        return app.config['collection-name-exceptions'][collection_name].get('tweets', 'tweets')
     return 'tweets'
 
 class Entity:
     @classmethod
     def all(cls):
-        return cls._collection.find()
+        return cls._collection.find({'collection_name' : { '$ne' : 'Permission'}})
 
     @classmethod
     def find(cls, findby):
@@ -32,16 +33,20 @@ class Permission(Entity):
 class FilterCriteria:
     @classmethod
     def _collection_for(cls, collection_name):
-        return _client[collection_name][_filter_criteria_collection_name('collection_name')]
+        return _client[collection_name][_filter_criteria_collection_name(collection_name)]
 
     @classmethod
     def find_by_collection_name(cls, collection_name, query={}):
         return cls._collection_for(collection_name).find(query)
 
+    @classmethod
+    def find_by_collection_name_and_object_id(cls, collection_name, id):
+        return cls._collection_for(collection_name).find_one({'_id': ObjectId(id)})
+
 class Tweet:
     @classmethod
     def _collection_for(cls, collection_name):
-        return _client[collection_name][_tweets_collection_name('collection_name')]
+        return _client[collection_name][_tweets_collection_name(collection_name)]
 
     @classmethod
     def find_by_collection_name(cls, collection_name, query={}):
