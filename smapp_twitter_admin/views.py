@@ -1,5 +1,5 @@
 from smapp_twitter_admin import app
-from smapp_twitter_admin.models import Permission
+from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
 from flask import session, render_template, redirect, request
@@ -26,12 +26,19 @@ def dashboard():
 
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
-    filter_criteria = Permission.find('collection_name')
-    import IPython
-    IPython.embed()
+    filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
+    latest_tweets = Tweet.latest_for(collection_name)
+    count = Tweet.count(collection_name)
 
-    return "hello %s" % collection_name
+    return render_template('collections/show.html', collection_name=collection_name,
+                                                    filter_criteria=filter_criteria,
+                                                    latest_tweets=latest_tweets,
+                                                    count=count)
 
 @app.route('/filter-criteria')
 def filter_criteria_index():
     return render_template('filter-criteria/index.html')
+
+@app.route('/filter-criteria/<id>')
+def filter_criteria_edit():
+    pass

@@ -6,6 +6,16 @@ if 'username' in app.config['db'] and 'password' in app.config['db']:
     _client.admin.authenticate(app.config['db']['username'], app.config['db']['password'])
 
 
+def _filter_criteria_collection_name(collection_name):
+    if 'collection-name-exceptions' in app.config and collection_name in app.config['collection-name-exceptions']:
+        return app.config['collection-name-exceptions']['collection_name'].get('filter-criteria', 'tweets_filter_criteria')
+    return 'tweets_filter_criteria'
+
+def _tweets_collection_name(collection_name):
+    if 'collection-name-exceptions' in app.config and collection_name in app.config['collection-name-exceptions']:
+        return app.config['collection-name-exceptions']['collection_name'].get('tweets', 'tweets')
+    return 'tweets'
+
 class Entity:
     @classmethod
     def all(cls):
@@ -19,4 +29,28 @@ class Permission(Entity):
     _collection = _client['FilterCriteriaAdmin']['permission']
     _findby = 'collection_name'
 
+class FilterCriteria:
+    @classmethod
+    def _collection_for(cls, collection_name):
+        return _client[collection_name][_filter_criteria_collection_name('collection_name')]
 
+    @classmethod
+    def find_by_collection_name(cls, collection_name, query={}):
+        return cls._collection_for(collection_name).find(query)
+
+class Tweet:
+    @classmethod
+    def _collection_for(cls, collection_name):
+        return _client[collection_name][_tweets_collection_name('collection_name')]
+
+    @classmethod
+    def find_by_collection_name(cls, collection_name, query={}):
+        return cls._collection_for(collection_name).find(query)
+
+    @classmethod
+    def latest_for(cls, collection_name, count=5, query={}):
+        return cls._collection_for(collection_name).find().sort('timestamp', -1).limit(count)
+
+    @classmethod
+    def count(cls, collection_name):
+        return cls._collection_for(collection_name).count()
