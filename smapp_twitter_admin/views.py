@@ -1,5 +1,7 @@
 from smapp_twitter_admin import app
+from smapp_twitter_admin.models import Permission
 from smapp_twitter_admin.oauth_module import current_user
+from smapp_twitter_admin.models import Permission
 from flask import session, render_template, redirect, request
 
 @app.before_request
@@ -19,7 +21,16 @@ def welcome_view():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    collections = [p['collection_name'] for p in Permission.all()]
+    return render_template('dashboard.html', collections=collections)
+
+@app.route('/collections/<collection_name>')
+def collections(collection_name):
+    filter_criteria = Permission.find('collection_name')
+    import IPython
+    IPython.embed()
+
+    return "hello %s" % collection_name
 
 @app.route('/filter-criteria')
 def filter_criteria_index():
