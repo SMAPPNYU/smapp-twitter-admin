@@ -58,4 +58,5 @@ def filter_criteria_edit(collection_name, id):
 
 @app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_delete(collection_name, id):
-    return "delete fc"
+    FilterCriteria.delete(collection_name, id)
+    return redirect(url_for('collections', collection_name=collection_name))

@@ -48,6 +48,10 @@ class FilterCriteria:
         data['_id'] = ObjectId(id)
         return cls._collection_for(collection_name).save(data)
 
+    @classmethod
+    def delete(cls, collection_name, id):
+        return cls._collection_for(collection_name).remove({'_id': ObjectId(id)})
+
 class Tweet:
     @classmethod
     def _collection_for(cls, collection_name):
