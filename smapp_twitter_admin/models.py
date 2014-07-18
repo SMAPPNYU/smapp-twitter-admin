@@ -62,8 +62,8 @@ class Tweet:
         return cls._collection_for(collection_name).find(query)
 
     @classmethod
-    def latest_for(cls, collection_name, count=5, query={}):
-        return cls._collection_for(collection_name).find().sort('timestamp', -1).limit(count)
+    def latest_for(cls, collection_name, count=5, query={}, fields=None):
+        return cls._collection_for(collection_name).find(query, fields).sort('timestamp', -1).limit(count)
 
     @classmethod
     def count(cls, collection_name):

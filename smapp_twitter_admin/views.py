@@ -3,8 +3,10 @@ from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
 from smapp_twitter_admin.forms import FilterCriterionForm
-from flask import _request_ctx_stack, session, render_template, redirect, request, url_for
-from datetime import datetime
+from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file
+from datetime import datetime, timedelta
+
+import smapp_twitter_admin.graphing as graphing
 
 @app.before_request
 def user_login_check():
@@ -36,6 +38,18 @@ def collections(collection_name):
                                                     filter_criteria=filter_criteria,
                                                     latest_tweets=latest_tweets,
                                                     count=count)
+
+@app.route('/collections/<collection_name>/graphs/<graph_name>')
+def collection_graph(collection_name, graph_name):
+    latest_tweets = list(Tweet.latest_for(collection_name,
+        query={'timestamp': {'$gt': datetime.utcnow()-timedelta(hours=1)}},
+        fields={'timestamp': True},
+        count=50000))
+
+    if graph_name == 'tpm':
+        graph = graphing.tpm_plot(latest_tweets)
+        response = send_file(graph, as_attachment=True, attachment_filename='tpm.svg')
+        return response
 
 @app.route('/filter-criteria')
 def filter_criteria_index():

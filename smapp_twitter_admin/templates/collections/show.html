@@ -30,7 +30,16 @@
           {% endfor %}
         </table>
       </div>
-      <div class="tab-pane" id="graphs">...</div>
+
+
+      <div class="tab-pane" id="graphs">
+        ...
+        <div id="graph-container" style="display:none;">
+          HELLO!
+        </div>
+      </div>
+
+
       <div class="tab-pane" id="filter-criteria">
         <h3>Filter Criteria</h3>
         <span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria.count()) }}</span>
