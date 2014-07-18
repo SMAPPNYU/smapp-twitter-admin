@@ -29,3 +29,17 @@ def tpm_plot(tweets):
 
     return imgdata
 
+def limits_plot(limit_messages):
+    x, y = zip( *[(lm['timestamp'], lm['number_missed']) for lm in limit_messages] )
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    # ax.bar(x,y, width=0.0005, alpha=0.8, color='r')
+    ax.plot(x,y, 'ro')
+
+    imgdata = StringIO.StringIO()
+    fig.savefig(imgdata, format='svg')
+    imgdata.seek(0)
+    plt.close()
+
+    return imgdata

@@ -1,5 +1,5 @@
 from smapp_twitter_admin import app
-from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet
+from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
 from smapp_twitter_admin.forms import FilterCriterionForm
@@ -11,7 +11,6 @@ import smapp_twitter_admin.graphing as graphing
 @app.before_request
 def user_login_check():
     if not request.path in ['/', '/login', '/oauthorized']:
-        print current_user()
         if current_user():
             return
         return redirect('/')
@@ -41,15 +40,18 @@ def collections(collection_name):
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
-    latest_tweets = list(Tweet.latest_for(collection_name,
-        query={'timestamp': {'$gt': datetime.utcnow()-timedelta(hours=1)}},
-        fields={'timestamp': True},
-        count=50000))
-
     if graph_name == 'tpm':
+        latest_tweets = list(Tweet.latest_for(collection_name,
+            query={'timestamp': {'$gt': datetime.utcnow()-timedelta(hours=1)}},
+            fields={'timestamp': True},
+            count=50000))
         graph = graphing.tpm_plot(latest_tweets)
-        response = send_file(graph, as_attachment=True, attachment_filename='tpm.svg')
-        return response
+    elif graph_name == 'limits':
+        limit_messages = LimitMessage.all_for(collection_name)
+        graph = graphing.limits_plot(limit_messages)
+
+    response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
+    return response
 
 @app.route('/filter-criteria')
 def filter_criteria_index():

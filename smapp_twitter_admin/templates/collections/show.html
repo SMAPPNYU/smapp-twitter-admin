@@ -33,9 +33,14 @@
 
 
       <div class="tab-pane" id="graphs">
-        ...
-        <div id="graph-container" style="display:none;">
-          HELLO!
+        <div id="tpm-graph">
+          <h4>Tweets per minute</h4>
+          <button class="btn btn-primary" onclick="show_graph('tpm');">Show</button>
+        </div>
+
+        <div id="limits-graph">
+          <h4>API rate limits</h4>
+          <button class="btn btn-primary" onclick="show_graph('limits');">Show</button>
         </div>
       </div>
 
@@ -81,5 +86,11 @@
         $('#myTab a:first').tab('show');
       })
     };
+
+    function show_graph(graph_type) {
+      var divid = '#' + graph_type + '-graph';
+      $(divid + ' > button').hide();
+      $(divid).append('<object id="tpm-graph" data="/collections/{{ collection_name }}/graphs/' + graph_type + '" type="image/svg+xml"/>');
+    }
   </script>
 {% endblock %}

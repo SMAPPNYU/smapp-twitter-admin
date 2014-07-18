@@ -17,6 +17,9 @@ def _tweets_collection_name(collection_name):
         return app.config['collection-name-exceptions'][collection_name].get('tweets', 'tweets')
     return 'tweets'
 
+def _limits_collection_name(collection_name):
+    return _tweets_collection_name(collection_name) + '_limits'
+
 class Entity:
     @classmethod
     def all(cls):
@@ -68,3 +71,12 @@ class Tweet:
     @classmethod
     def count(cls, collection_name):
         return cls._collection_for(collection_name).count()
+
+class LimitMessage:
+    @classmethod
+    def _collection_for(cls, collection_name):
+        return _client[collection_name][_limits_collection_name(collection_name)]
+
+    @classmethod
+    def all_for(cls, collection_name):
+        return cls._collection_for(collection_name).find().sort('timestamp')
