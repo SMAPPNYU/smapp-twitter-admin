@@ -34,8 +34,7 @@ def limits_plot(limit_messages):
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    # ax.bar(x,y, width=0.0005, alpha=0.8, color='r')
-    ax.plot(x,y, 'ro')
+    ax.plot(x,y, 'ro', alpha=0.8)
 
     imgdata = StringIO.StringIO()
     fig.savefig(imgdata, format='svg')
