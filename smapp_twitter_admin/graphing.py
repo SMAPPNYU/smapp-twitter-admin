@@ -34,7 +34,13 @@ def limits_plot(limit_messages):
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.plot(x,y, 'ro', alpha=0.8)
+
+    x = matplotlib.dates.date2num(x)
+    ax.plot_date(x,y, 'ro', alpha=0.8, xdate=True)
+
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+    plt.xticks(rotation=90)
+    plt.tight_layout()
 
     imgdata = StringIO.StringIO()
     fig.savefig(imgdata, format='svg')
