@@ -68,9 +68,12 @@ def filter_criteria_edit(collection_name, id):
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
+        if form.date_stopped.data:
+            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
         FilterCriteria.update(collection_name, id, form.data)
         return redirect(url_for('collections', collection_name=collection_name))
-    return redirect(url_for('filter_criteria_show', collection_name=collection_name, id=id))
+    else:
+        return redirect(url_for('filter_criteria_show', collection_name=collection_name, id=id))
 
 @app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_delete(collection_name, id):
