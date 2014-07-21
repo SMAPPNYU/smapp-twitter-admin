@@ -53,18 +53,31 @@ def collection_graph(collection_name, graph_name):
     response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
     return response
 
-@app.route('/filter-criteria')
-def filter_criteria_index():
-    return render_template('filter-criteria/index.html')
+@app.route('/filter-criteria/<collection_name>/new', methods=['GET'])
+def filter_criteria_new(collection_name):
+    form = FilterCriterionForm(active=True, date_added=datetime.now())
+    return render_template('filter-criteria/new.html', form=form, collection_name=collection_name)
+
+@app.route('/filter-criteria/<collection_name>/create', methods=['POST'])
+def filter_criteria_create(collection_name):
+    form = FilterCriterionForm(request.form)
+    if form.validate():
+        form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
+        if form.date_stopped.data:
+            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
+        FilterCriteria.create(collection_name, form.data)
+        return redirect(url_for('collections', collection_name=collection_name))
+    else:
+        return render_template('filter-criteria/new.html', form=form)
 
 @app.route('/filter-criteria/<collection_name>/<id>', methods=['GET'])
-def filter_criteria_show(collection_name, id):
+def filter_criteria_edit(collection_name, id):
     filter_criterion = FilterCriteria.find_by_collection_name_and_object_id(collection_name, id)
     form = FilterCriterionForm(**filter_criterion)
     return render_template('filter-criteria/edit.html', form=form, collection_name=collection_name, id=id)
 
 @app.route('/filter-criteria/<collection_name>/<id>', methods=['POST'])
-def filter_criteria_edit(collection_name, id):
+def filter_criteria_update(collection_name, id):
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
@@ -73,7 +86,7 @@ def filter_criteria_edit(collection_name, id):
         FilterCriteria.update(collection_name, id, form.data)
         return redirect(url_for('collections', collection_name=collection_name))
     else:
-        return redirect(url_for('filter_criteria_show', collection_name=collection_name, id=id))
+        return redirect(url_for('filter_criteria_edit', collection_name=collection_name, id=id))
 
 @app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_delete(collection_name, id):

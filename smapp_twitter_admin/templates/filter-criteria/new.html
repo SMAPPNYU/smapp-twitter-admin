@@ -3,7 +3,7 @@
     <a href="{{ url_for('collections', collection_name=collection_name) }}"><button class="button btn">Back</button></a>
     <h3>Edit Filter Criteria</h3>
     <div class="well">
-      <form method="POST" action="{{ url_for('filter_criteria_update', collection_name=collection_name, id=id) }}" class="form form-horizontal">
+      <form method="POST" action="{{ url_for('filter_criteria_create', collection_name=collection_name, id=id) }}" class="form form-horizontal">
         <fieldset>
           {{ form.hidden_tag() }}
 

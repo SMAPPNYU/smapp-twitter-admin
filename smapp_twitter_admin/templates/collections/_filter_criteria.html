@@ -1,0 +1,36 @@
+<h3>Filter Criteria</h3>
+<span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria.count()) }}</span>
+
+<a href="{{ url_for('filter_criteria_new', collection_name=collection_name) }}"><button class="btn btn-success">Add filter criterion</button></a>
+<a href=""><button class="btn btn-success">Add many terms</button></a>
+
+<table class="table table-striped table-condensed">
+  <thead>
+      <tr>
+        <th>Filter Type</th>
+        <th>Keyword</th>
+        <th>Active</th>
+        <th>Date Added</th>
+        <th>Date Removed</th>
+        <th></th>
+        <th></th>
+      </tr>
+  </thead>
+  {% for fc in filter_criteria %}
+      <tr>
+        <td>{{ fc['filter_type'] }}</td>
+        <td>{{ fc['value'] }}</td>
+        <td>{{ fc['active'] }}</td>
+        <td>{{ fc['date_added'] }}</td>
+        <td>{{ fc['date_stopped'] }}</td>
+        <td>
+          <a href="{{ url_for('filter_criteria_edit', collection_name=collection_name, id=fc['_id']) }}"><button class="btn btn-small btn-primary" type="button">Edit</button></a>
+        </td>
+        <td>
+          <form action="{{ url_for('filter_criteria_delete', collection_name=collection_name, id=fc['_id']) }}" method="POST">
+            <input type="submit" value="Delete" class="btn btn-small btn-danger" />
+          </form>
+        </td>
+      </tr>
+  {% endfor %}
+</table>
