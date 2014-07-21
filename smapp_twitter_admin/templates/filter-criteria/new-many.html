@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+    <a href="{{ url_for('collections', collection_name=collection_name) }}"><button class="button btn">Back</button></a>
+    <h3>Add many keywords to the twitter collection</h3>
+    <div class="well">
+      <form method="POST" action="{{ url_for('filter_criteria_create_many', collection_name=collection_name) }}" class="form form-horizontal">
+        <fieldset>
+          {{ form.hidden_tag() }}
+
+          <div class="control-group">
+            <div class="control-label">{{ form.keywords.label }}</div>
+            <div class="controls">
+              {{ form.keywords(rows=10, cols=50) }}
+            </div>
+            <span class="help-block">
+              Enter a single keyword/phrase on each line.
+            </span>
+          </div>
+
+          <div class="controls">
+            <input type="submit" value="Save" class="button btn-primary">
+          </div>
+        </fieldset>
+    </form>
+  </div>
+
+{% endblock %}
+
+{% block tail %}
+  <script>
+    $('#date_added').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+    $('#date_stopped').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+  </script>
+{% endblock %}

@@ -2,7 +2,7 @@ from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.models import Permission
-from smapp_twitter_admin.forms import FilterCriterionForm
+from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file
 from datetime import datetime, timedelta
 
@@ -52,6 +52,25 @@ def collection_graph(collection_name, graph_name):
 
     response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
     return response
+
+@app.route('/filter-criteria/<collection_name>/new-many', methods=['GET'])
+def filter_criteria_new_many(collection_name):
+    # form = FilterCriterionForm(active=True, date_added=datetime.now())
+    # return render_template('filter-criteria/new.html', form=form, collection_name=collection_name)
+    form = FilterCriteriaManyForm()
+    return render_template('filter-criteria/new-many.html', form=form, collection_name=collection_name)
+
+@app.route('/filter-criteria/<collection_name>/create-many', methods=['POST'])
+def filter_criteria_create_many(collection_name):
+    form = FilterCriteriaManyForm(request.form)
+    if form.validate():
+        keywords = filter(None,[keyword.strip() for keyword in form.keywords.data.split('\n')])
+        for keyword in keywords:
+            FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), 'type': 'track', 'value': keyword})
+        return redirect(url_for('collections', collection_name=collection_name))
+    else:
+        return render_template('filter-criteria/new-many.html')
+
 
 @app.route('/filter-criteria/<collection_name>/new', methods=['GET'])
 def filter_criteria_new(collection_name):
