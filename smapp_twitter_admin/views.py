@@ -1,7 +1,6 @@
 from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage
 from smapp_twitter_admin.oauth_module import current_user
-from smapp_twitter_admin.models import Permission
 from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file
 from datetime import datetime, timedelta
