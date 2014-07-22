@@ -29,10 +29,6 @@ def dashboard():
 
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
-    permission = EditTwitterCollectionPermission(collection_name)
-    if not permission.can():
-        abort(403)
-
     filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
     latest_tweets = Tweet.latest_for(collection_name)
     count = Tweet.count(collection_name)
@@ -40,7 +36,8 @@ def collections(collection_name):
     return render_template('collections/show.html', collection_name=collection_name,
                                                     filter_criteria=filter_criteria,
                                                     latest_tweets=latest_tweets,
-                                                    count=count)
+                                                    count=count,
+                                                    can_edit=EditTwitterCollectionPermission(collection_name).can())
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
@@ -66,6 +63,9 @@ def filter_criteria_new_many(collection_name):
 
 @app.route('/filter-criteria/<collection_name>/create-many', methods=['POST'])
 def filter_criteria_create_many(collection_name):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
     form = FilterCriteriaManyForm(request.form)
     if form.validate():
         keywords = filter(None,[keyword.strip() for keyword in form.keywords.data.split('\n')])
@@ -83,6 +83,9 @@ def filter_criteria_new(collection_name):
 
 @app.route('/filter-criteria/<collection_name>/create', methods=['POST'])
 def filter_criteria_create(collection_name):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
@@ -101,6 +104,9 @@ def filter_criteria_edit(collection_name, id):
 
 @app.route('/filter-criteria/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_update(collection_name, id):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
@@ -113,5 +119,8 @@ def filter_criteria_update(collection_name, id):
 
 @app.route('/filter-criteria/delete/<collection_name>/<id>', methods=['POST'])
 def filter_criteria_delete(collection_name, id):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
     FilterCriteria.delete(collection_name, id)
     return redirect(url_for('collections', collection_name=collection_name))
