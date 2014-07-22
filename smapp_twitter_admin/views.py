@@ -2,10 +2,11 @@ from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm
-from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file
+from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file, abort
 from datetime import datetime, timedelta
 
 import smapp_twitter_admin.graphing as graphing
+from smapp_twitter_admin.authorization_module import EditTwitterCollectionPermission
 
 @app.before_request
 def user_login_check():
@@ -28,6 +29,10 @@ def dashboard():
 
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
+    permission = EditTwitterCollectionPermission(collection_name)
+    if not permission.can():
+        abort(403)
+
     filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
     latest_tweets = Tweet.latest_for(collection_name)
     count = Tweet.count(collection_name)

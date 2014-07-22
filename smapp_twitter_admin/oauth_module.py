@@ -1,6 +1,7 @@
-from flask import g, session, request, url_for, flash
+from flask import g, session, request, url_for, flash, current_app
 from flask import redirect
 from flask_oauthlib.client import OAuth
+from flask.ext.principal import Identity, identity_changed
 from smapp_twitter_admin import app
 
 oauth = OAuth(app)
@@ -25,6 +26,7 @@ def before_request():
     g.user = None
     if 'twitter_oauth' in session:
         g.user = session['twitter_oauth']
+        identity_changed.send(current_app._get_current_object(), identity=Identity(current_user()))
 
 @app.route('/login')
 def login():

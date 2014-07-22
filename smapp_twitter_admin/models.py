@@ -33,6 +33,10 @@ class Permission(Entity):
     _collection = _client['FilterCriteriaAdmin']['permission']
     _findby = 'collection_name'
 
+    @classmethod
+    def collections_for_user(cls, user):
+        return [permission['collection_name'] for permission in cls._collection.find({'permitted': {'$in': [user]}})]
+
 class FilterCriteria:
     @classmethod
     def _collection_for(cls, collection_name):
