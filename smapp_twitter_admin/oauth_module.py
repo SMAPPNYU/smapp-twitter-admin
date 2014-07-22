@@ -26,7 +26,6 @@ def before_request():
     g.user = None
     if 'twitter_oauth' in session:
         g.user = session['twitter_oauth']
-        identity_changed.send(current_app._get_current_object(), identity=Identity(current_user()))
 
 @app.route('/login')
 def login():
@@ -46,6 +45,7 @@ def oauthorized(resp):
         flash('You denied the request to sign in.')
     else:
         session['twitter_oauth'] = resp
+        identity_changed.send(current_app._get_current_object(), identity=Identity(current_user()))
     return redirect(url_for('welcome_view'))
 
 def current_user():
