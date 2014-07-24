@@ -1,0 +1,17 @@
+SECRET_KEY: 1234567890
+
+TWITTER:
+    consumer_key: my_secret_consumer_key
+    consumer_secret: my_consumer_secret
+db:
+    host: localhost
+    port: 27017
+    username: username
+    password: password
+
+collection-name-exceptions:
+    PostCommunist:
+        tweets: russia_tweets
+        filter-criteria: 'russia_tweets_filter_criteria'
+    test:
+        filter-criteria: 'test_tweets_filter_criteria'
