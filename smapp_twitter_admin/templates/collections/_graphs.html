@@ -13,7 +13,6 @@
 <script>
   function show_graph(graph_type) {
     var divid = '#' + graph_type + '-graph';
-    console.log(divid);
     $(divid + ' > button').hide();
     $.ajax({
       type: 'get',
@@ -28,5 +27,6 @@
           $(divid + ' .error').show();
         }
       }
-      });
+    });
+  }
 </script>
