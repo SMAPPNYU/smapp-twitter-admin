@@ -42,16 +42,21 @@ def collections(collection_name):
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
     if graph_name == 'tpm':
-        latest_tweets = list(Tweet.latest_for(collection_name,
+        objects = list(Tweet.latest_for(collection_name,
             query={'timestamp': {'$gt': datetime.utcnow()-timedelta(hours=1)}},
             fields={'timestamp': True},
             count=50000))
-        graph = graphing.tpm_plot(latest_tweets)
+        # graph = graphing.tpm_plot(latest_tweets)
+        graph_method = graphing.tpm_plot
     elif graph_name == 'limits':
-        limit_messages = LimitMessage.all_for(collection_name)
-        graph = graphing.limits_plot(limit_messages)
+        objects = list(LimitMessage.all_for(collection_name))
+        # graph = graphing.limits_plot(limit_messages)
+        graph_method = graphing.limits_plot
+    if len(objects) > 0:
+        graph = graph_method(objects)
+        response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
+    else: response = 'no objects', 404
 
-    response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
     return response
 
 @app.route('/filter-criteria/<collection_name>/new-many', methods=['GET'])

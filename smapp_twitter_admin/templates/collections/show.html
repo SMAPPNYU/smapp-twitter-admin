@@ -32,11 +32,5 @@
         $('#myTab a:first').tab('show');
       })
     };
-
-    function show_graph(graph_type) {
-      var divid = '#' + graph_type + '-graph';
-      $(divid + ' > button').hide();
-      $(divid).append('<object id="tpm-graph" data="/collections/{{ collection_name }}/graphs/' + graph_type + '" type="image/svg+xml"/>');
-    }
   </script>
 {% endblock %}

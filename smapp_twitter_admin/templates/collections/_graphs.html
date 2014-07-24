@@ -1,9 +1,32 @@
 <div id="tpm-graph">
   <h4>Tweets per minute</h4>
   <button class="btn btn-primary" onclick="show_graph('tpm');">Show</button>
+  <div class="error" style="display: none;"><strong>Collection doesn't seem to have received any tweets in this last hour.</strong></div>
 </div>
 
 <div id="limits-graph">
   <h4>API rate limits</h4>
   <button class="btn btn-primary" onclick="show_graph('limits');">Show</button>
+  <div class="error" style="display: none;"><strong>No rate limit messages logged for this collection.</strong></div>
 </div>
+
+<script>
+  function show_graph(graph_type) {
+    var divid = '#' + graph_type + '-graph';
+    console.log(divid);
+    $(divid + ' > button').hide();
+    $.ajax({
+      type: 'get',
+      url: '/collections/{{ collection_name }}/graphs/' + graph_type,
+      success: function(data){
+        $(divid).append('<div class="graph" />');
+        $(divid + ' .graph').append(data.documentElement)
+
+      },
+      error: function(xhr, ajaxOptions, thrownError){
+        if(xhr.status == 404){
+          $(divid + ' .error').show();
+        }
+      }
+      });
+</script>
