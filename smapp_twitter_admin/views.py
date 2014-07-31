@@ -75,7 +75,7 @@ def filter_criteria_create_many(collection_name):
     if form.validate():
         keywords = filter(None,[keyword.strip() for keyword in form.keywords.data.split('\n')])
         for keyword in keywords:
-            FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), 'type': 'track', 'value': keyword})
+            FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), 'filter_type': 'track', 'value': keyword})
         return redirect(url_for('collections', collection_name=collection_name))
     else:
         return render_template('filter-criteria/new-many.html')
