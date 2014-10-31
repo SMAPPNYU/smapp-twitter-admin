@@ -24,7 +24,7 @@ def welcome_view():
 
 @app.route('/dashboard')
 def dashboard():
-    collections = [p['collection_name'] for p in Permission.all()]
+    collections = sorted([p['collection_name'] for p in Permission.all()])
     return render_template('dashboard.html', collections=collections)
 
 @app.route('/collections/<collection_name>')
