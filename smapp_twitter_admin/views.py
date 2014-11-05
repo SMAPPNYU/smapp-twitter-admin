@@ -30,7 +30,7 @@ def dashboard():
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
     filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
-    latest_tweets = Tweet.latest_for(collection_name)
+    latest_tweets = Tweet.latest(collection_name, 5)[-5:]
     count = Tweet.count(collection_name)
 
     return render_template('collections/show.html', collection_name=collection_name,
@@ -42,15 +42,10 @@ def collections(collection_name):
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
     if graph_name == 'tpm':
-        objects = list(Tweet.latest_for(collection_name,
-            query={'timestamp': {'$gt': datetime.utcnow()-timedelta(hours=1)}},
-            fields={'timestamp': True},
-            count=50000))
-        # graph = graphing.tpm_plot(latest_tweets)
+        objects = Tweet.since(collection_name, datetime.utcnow()-timedelta(hours=1), n=50000)
         graph_method = graphing.tpm_plot
     elif graph_name == 'limits':
         objects = list(LimitMessage.all_for(collection_name))
-        # graph = graphing.limits_plot(limit_messages)
         graph_method = graphing.limits_plot
     if len(objects) > 0:
         graph = graph_method(objects)

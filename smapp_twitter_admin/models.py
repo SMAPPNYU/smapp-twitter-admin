@@ -1,6 +1,8 @@
 from smapp_twitter_admin import app
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from smapp_toolkit.twitter import MongoTweetCollection
+from datetime import datetime, timedelta
 
 _client = MongoClient(app.config['db']['host'], app.config['db'].get('port', 27017))
 if 'username' in app.config['db'] and 'password' in app.config['db']:
@@ -66,19 +68,21 @@ class FilterCriteria:
 class Tweet:
     @classmethod
     def _collection_for(cls, collection_name):
-        return _client[collection_name][_tweets_collection_name(collection_name)]
-
-    @classmethod
-    def find_by_collection_name(cls, collection_name, query={}):
-        return cls._collection_for(collection_name).find(query)
-
-    @classmethod
-    def latest_for(cls, collection_name, count=5, query={}, fields=None):
-        return cls._collection_for(collection_name).find(query, fields).sort('timestamp', -1).limit(count)
-
+        return MongoTweetCollection(address=app.config['db']['host'], port=app.config['db'].get('port', 27017),
+                                    dbname=collection_name, username=app.config['db']['username'],
+                                    password=app.config['db']['password'])
     @classmethod
     def count(cls, collection_name):
         return cls._collection_for(collection_name).count()
+
+    @classmethod
+    def since(cls, collection_name, since, n=1000):
+        return list(cls._collection_for(collection_name).since(since).sort('timestamp',-1).limit(n))
+
+    @classmethod
+    def latest(cls, collection_name, n):
+        return list(cls._collection_for(collection_name).sort('timestamp',-1).limit(n))
+
 
 class LimitMessage:
     @classmethod
