@@ -7,7 +7,7 @@ class FilterCriterionForm(Form):
     value = TextField('Value')
     active = BooleanField('Active')
     date_added = DateField('Date Added')
-    date_stopped = DateField('Date Stopped', validators=[Optional()])
+    date_removed = DateField('Date Removed', validators=[Optional()])
 
 class FilterCriteriaManyForm(Form):
     keywords = TextAreaField('Keywords', validators=[Required()])

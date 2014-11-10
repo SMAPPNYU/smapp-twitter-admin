@@ -24,7 +24,7 @@
         <td>{{ fc['value'] }}</td>
         <td>{{ fc['active'] }}</td>
         <td>{{ fc['date_added'] }}</td>
-        <td>{{ fc['date_stopped'] }}</td>
+        <td>{{ fc['date_removed'] }}</td>
         <td>
           {% if can_edit %}
             <a href="{{ url_for('filter_criteria_edit', collection_name=collection_name, id=fc['_id']) }}"><button class="btn btn-small btn-primary" type="button">Edit</button></a>

@@ -49,10 +49,10 @@
             </div>
           </div>
 
-            <div class="control-label">{{ form.date_stopped.label }}</div>
+            <div class="control-label">{{ form.date_removed.label }}</div>
             <div class="controls">
               <div class="input-append date" data-date-format="dd-mm-yyyy">
-                {{ form.date_stopped(size=20) }}
+                {{ form.date_removed(size=20) }}
                 <span class="add-on"><i class="icon-th"></i></span>
               </div>
             </div>
@@ -72,7 +72,7 @@
     $('#date_added').datepicker({
         format: 'yyyy-mm-dd'
       });
-    $('#date_stopped').datepicker({
+    $('#date_removed').datepicker({
         format: 'yyyy-mm-dd'
       });
   </script>

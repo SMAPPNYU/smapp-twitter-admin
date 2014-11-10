@@ -70,7 +70,7 @@ def filter_criteria_create_many(collection_name):
     if form.validate():
         keywords = filter(None,[keyword.strip() for keyword in form.keywords.data.split('\n')])
         for keyword in keywords:
-            FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), 'filter_type': 'track', 'value': keyword})
+            FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), "date_removed": None, 'filter_type': 'track', 'value': keyword})
         return redirect(url_for('collections', collection_name=collection_name))
     else:
         return render_template('filter-criteria/new-many.html')
@@ -78,7 +78,7 @@ def filter_criteria_create_many(collection_name):
 
 @app.route('/filter-criteria/<collection_name>/new', methods=['GET'])
 def filter_criteria_new(collection_name):
-    form = FilterCriterionForm(active=True, date_added=datetime.now())
+    form = FilterCriterionForm(active=True, date_added=datetime.now(), date_removed=None)
     return render_template('filter-criteria/new.html', form=form, collection_name=collection_name)
 
 @app.route('/filter-criteria/<collection_name>/create', methods=['POST'])
@@ -89,8 +89,8 @@ def filter_criteria_create(collection_name):
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
-        if form.date_stopped.data:
-            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
+        if form.date_removed.data:
+            form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         FilterCriteria.create(collection_name, form.data)
         return redirect(url_for('collections', collection_name=collection_name))
     else:
@@ -110,8 +110,8 @@ def filter_criteria_update(collection_name, id):
     form = FilterCriterionForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
-        if form.date_stopped.data:
-            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
+        if form.date_removed.data:
+            form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         FilterCriteria.update(collection_name, id, form.data)
         return redirect(url_for('collections', collection_name=collection_name))
     else:
