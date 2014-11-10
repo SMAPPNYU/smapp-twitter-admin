@@ -81,7 +81,7 @@ class Tweet:
 
     @classmethod
     def latest(cls, collection_name, n):
-        return list(cls._collection_for(collection_name).sort('timestamp',-1).limit(n))
+        return list(cls._collection_for(collection_name).using_latest_collection_only().sort('timestamp',-1).limit(n))
 
 
 class LimitMessage:
