@@ -8,19 +8,11 @@
           {{ form.hidden_tag() }}
 
           <div class="control-group">
-            <div class="control-label">{{ form.filter_type.label }}</div>
+            <div class="control-label">Filter Function</div>
 
             <div class="controls">
-              {{ form.filter_type() }}
-              <span class="help-block" id="func-docstring">
-              </span>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <div class="control-label">{{ form.arguments.label }}</div>
-            <div class="controls">
-              {{ form.arguments(size=20) }}
+              <p>{{ form.filter_type() }} ( tweet, {{ form.arguments(size=20) }})</p>
+              <span class="help-block" id="func-docstring"></span>
             </div>
           </div>
 
