@@ -13,3 +13,8 @@ def filter_choices():
     Choices for dropdown menu for filter functions.
     """
     return [(fname, fname) for fname in available_filters]
+
+def filter_docstring(fname):
+    if fname not in available_filters:
+        return 'NA'
+    return tweet_filter.__getattribute__(fname).func_doc

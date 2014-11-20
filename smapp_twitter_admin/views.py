@@ -2,6 +2,7 @@ from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm
+from smapp_twitter_admin.post_filters import filter_docstring
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file, abort
 from datetime import datetime, timedelta
 
@@ -175,3 +176,7 @@ def post_filter_delete(collection_name, id):
 
     PostFilter.delete(collection_name, id)
     return redirect(url_for('collections', collection_name=collection_name))
+
+@app.route('/post-filter-docstring/<fname>', methods=['GET'])
+def post_filter_docstring(fname):
+    return filter_docstring(fname)
