@@ -140,9 +140,9 @@ def post_filter_create(collection_name):
     form = PostFilterForm(request.form)
     if form.validate():
         form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
-        if form.date_stopped.data:
-            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
-        FilterCriteria.create(collection_name, form.data)
+        if form.date_removed.data:
+            form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
+        PostFilter.create(collection_name, form.data)
         return redirect(url_for('collections', collection_name=collection_name))
     else:
         return render_template('post-filters/new.html', form=form)
