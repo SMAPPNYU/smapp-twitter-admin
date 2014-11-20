@@ -3,22 +3,15 @@
     <a href="{{ url_for('collections', collection_name=collection_name) }}"><button class="button btn">Back</button></a>
     <h3>Edit Post-Filter</h3>
     <div class="well">
-      <form method="POST" action="{{ url_for('post_filter_update', collection_name=collection_name, id=id) }}" class="form form-horizontal">
+      <form method="POST" action="{{ url_for('post_filter_create', collection_name=collection_name, id=id) }}" class="form form-horizontal">
         <fieldset>
           {{ form.hidden_tag() }}
 
           <div class="control-group">
-            <div class="control-label">{{ form.filter_type.label }}</div>
+            <div class="control-label">Filter Function</div>
 
             <div class="controls">
-              {{ form.filter_type.data }}
-            </div>
-          </div>
-
-          <div class="control-group">
-            <div class="control-label">{{ form.arguments.label }}</div>
-            <div class="controls">
-              {{ form.arguments(size=20) }}
+              <p>{{ form.filter_type.data }} ( tweet, {{ form.arguments(size=20) }})</p>
             </div>
           </div>
 
