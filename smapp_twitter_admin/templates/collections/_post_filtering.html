@@ -28,12 +28,12 @@
         <td>{{ pf['date_stopped'] }}</td>
         <td>
           {% if can_edit %}
-            <a href="{{ url_for('filter_criteria_edit', collection_name=collection_name, id=pf['_id']) }}"><button class="btn btn-small btn-primary" type="button">Edit</button></a>
+            <a href="{{ url_for('post_filter_edit', collection_name=collection_name, id=pf['_id']) }}"><button class="btn btn-small btn-primary" type="button">Edit</button></a>
           {% endif %}
         </td>
         <td>
           {% if can_edit %}
-            <form action="{{ url_for('filter_criteria_delete', collection_name=collection_name, id=pf['_id']) }}" method="POST">
+            <form action="{{ url_for('post_filter_delete', collection_name=collection_name, id=pf['_id']) }}" method="POST">
               <input type="submit" value="Delete" class="btn btn-small btn-danger" />
             </form>
           {% endif %}

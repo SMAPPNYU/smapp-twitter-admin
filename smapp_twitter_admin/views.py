@@ -146,3 +146,32 @@ def post_filter_create(collection_name):
         return redirect(url_for('collections', collection_name=collection_name))
     else:
         return render_template('post-filters/new.html', form=form)
+
+@app.route('/post-filters/<collection_name>/<id>', methods=['GET'])
+def post_filter_edit(collection_name, id):
+    filter_criterion = PostFilter.find_by_collection_name_and_object_id(collection_name, id)
+    form = PostFilterForm(**filter_criterion)
+    return render_template('post-filters/edit.html', form=form, collection_name=collection_name, id=id)
+
+@app.route('/post-filters/<collection_name>/<id>', methods=['POST'])
+def post_filter_update(collection_name, id):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
+    form = PostFilterForm(request.form)
+    if form.validate():
+        form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
+        if form.date_removed.data:
+            form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
+        PostFilter.update(collection_name, id, form.data)
+        return redirect(url_for('collections', collection_name=collection_name))
+    else:
+        return redirect(url_for('post_filter_edit', collection_name=collection_name, id=id))
+
+@app.route('/post-filters/delete/<collection_name>/<id>', methods=['POST'])
+def post_filter_delete(collection_name, id):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
+    PostFilter.delete(collection_name, id)
+    return redirect(url_for('collections', collection_name=collection_name))
