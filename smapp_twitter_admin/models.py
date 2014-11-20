@@ -8,6 +8,8 @@ _client = MongoClient(app.config['db']['host'], app.config['db'].get('port', 270
 if 'username' in app.config['db'] and 'password' in app.config['db']:
     _client.admin.authenticate(app.config['db']['username'], app.config['db']['password'])
 
+def _metadata_for(collection_name):
+    return _client[collection_name]['smapp_metadata'].find_one({'document': 'smapp-tweet-collection-metadata'})
 
 def _filter_criteria_collection_name(collection_name):
     if 'collection-name-exceptions' in app.config and collection_name in app.config['collection-name-exceptions']:
@@ -64,6 +66,34 @@ class FilterCriteria:
     @classmethod
     def create(cls, collection_name, data):
         return cls._collection_for(collection_name).save(data)
+
+class PostFilter:
+    @classmethod
+    def _collection_for(cls, collection_name):
+        mongo_col_name = _metadata_for(collection_name).get('post_filters_collection', 'tweets_post_filters')
+        return _client[collection_name][mongo_col_name]
+
+    @classmethod
+    def count(cls, collection_name):
+        return cls._collection_for(collection_name).count()
+
+    @classmethod
+    def all_for(cls, collection_name):
+        return list(cls._collection_for(collection_name).find())
+
+    @classmethod
+    def update(cls, collection_name, id, data):
+        data['_id'] = ObjectId(id)
+        return cls._collection_for(collection_name).save(data)
+
+    @classmethod
+    def delete(cls, collection_name, id):
+        return cls._collection_for(collection_name).remove({'_id': ObjectId(id)})
+
+    @classmethod
+    def create(cls, collection_name, data):
+        return cls._collection_for(collection_name).save(data)
+
 
 class Tweet:
     @classmethod

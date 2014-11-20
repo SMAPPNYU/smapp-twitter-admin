@@ -1,7 +1,7 @@
 from smapp_twitter_admin import app
-from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage
+from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter
 from smapp_twitter_admin.oauth_module import current_user
-from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm
+from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file, abort
 from datetime import datetime, timedelta
 
@@ -32,11 +32,13 @@ def collections(collection_name):
     filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
     latest_tweets = Tweet.latest(collection_name, 5)[-5:]
     count = Tweet.count(collection_name)
+    post_filters = PostFilter.all_for(collection_name)
 
     return render_template('collections/show.html', collection_name=collection_name,
                                                     filter_criteria=filter_criteria,
                                                     latest_tweets=latest_tweets,
                                                     count=count,
+                                                    post_filters=post_filters,
                                                     can_edit=EditTwitterCollectionPermission(collection_name).can())
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
@@ -124,3 +126,23 @@ def filter_criteria_delete(collection_name, id):
 
     FilterCriteria.delete(collection_name, id)
     return redirect(url_for('collections', collection_name=collection_name))
+
+@app.route('/post-filters/<collection_name>/new', methods=['GET'])
+def post_filter_new(collection_name):
+    form = PostFilterForm(active=True, date_added=datetime.now())
+    return render_template('post-filters/new.html', form=form, collection_name=collection_name)
+
+@app.route('/post-filters/<collection_name>/create', methods=['POST'])
+def post_filter_create(collection_name):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
+    form = PostFilterForm(request.form)
+    if form.validate():
+        form.date_added.data = datetime.combine(form.data['date_added'], datetime.min.time())
+        if form.date_stopped.data:
+            form.date_stopped.data = datetime.combine(form.data['date_stopped'], datetime.min.time())
+        FilterCriteria.create(collection_name, form.data)
+        return redirect(url_for('collections', collection_name=collection_name))
+    else:
+        return render_template('post-filters/new.html', form=form)

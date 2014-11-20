@@ -7,6 +7,7 @@
       <li><a data-target="#latest" data-toggle="tab">Latest hits</a></li>
       <li><a data-target="#graphs" data-toggle="tab">Graphs</a></li>
       <li><a data-target="#filter-criteria" data-toggle="tab">Filter Criteria</a></li>
+      <li><a data-target="#post-filtering" data-toggle="tab">Post-filtering</a></li>
     </ul>
      
     <div class="tab-content">
@@ -22,6 +23,10 @@
 
       <div class="tab-pane" id="filter-criteria">
         {% include 'collections/_filter_criteria.html' %}
+      </div>
+
+      <div class="tab-pane" id="post-filtering">
+        {% include 'collections/_post_filtering.html' %}
       </div>
     </div>
   </div>
