@@ -82,6 +82,10 @@ class PostFilter:
         return list(cls._collection_for(collection_name).find())
 
     @classmethod
+    def find_by_collection_name_and_object_id(cls, collection_name, id):
+        return cls._collection_for(collection_name).find_one({'_id': ObjectId(id)})
+
+    @classmethod
     def update(cls, collection_name, id, data):
         data['_id'] = ObjectId(id)
         return cls._collection_for(collection_name).save(data)
