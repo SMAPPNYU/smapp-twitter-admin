@@ -1,5 +1,6 @@
 <h3>Post-filtering</h3>
 <p>These filters are checked for each tweet after it is received from twitter according to the filter criteria. Tweets matching any of the filters below are kept, tweets matching none are thrown away (and counted). If there are no filters, all tweets are kept.</p>
+<p>Available filters are drawn from the <code>smappPy</code> python library, <a href="https://github.com/SMAPPNYU/smappPy/blob/master/smappPy/tweet_filter.py">here</a>.</p>
 
 <span class="pull-right muted">Count: {{ "{:,}".format(post_filters|length) }}</span>
 
