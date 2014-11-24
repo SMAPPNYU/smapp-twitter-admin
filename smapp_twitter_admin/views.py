@@ -1,5 +1,5 @@
 from smapp_twitter_admin import app
-from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter
+from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter, ThrowawayMessage
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm
 from smapp_twitter_admin.post_filters import filter_docstring
@@ -50,6 +50,9 @@ def collection_graph(collection_name, graph_name):
     elif graph_name == 'limits':
         objects = list(LimitMessage.all_for(collection_name))
         graph_method = graphing.limits_plot
+    elif graph_name == 'throwaway':
+        objects = list(ThrowawayMessage.latest_for(collection_name))
+        graph_method = graphing.throwaway_plot
     if len(objects) > 0:
         graph = graph_method(objects)
         response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)

@@ -48,3 +48,19 @@ def limits_plot(limit_messages):
     plt.close()
 
     return imgdata
+
+def throwaway_plot(throwaway_messages):
+    x,y = zip(*[(m['timestamp'], m['count']) for m in reversed(throwaway_messages)])
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    ax.bar(x,y, width=0.005)
+    plt.title('tweets per hour')
+
+    imgdata = StringIO.StringIO()
+    fig.savefig(imgdata, format='svg')
+    imgdata.seek(0)
+    plt.close()
+
+    return imgdata

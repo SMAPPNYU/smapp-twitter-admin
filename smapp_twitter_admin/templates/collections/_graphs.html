@@ -10,6 +10,12 @@
   <div class="error" style="display: none;"><strong>No rate limit messages logged for this collection.</strong></div>
 </div>
 
+<div id="throwaway-graph">
+  <h4>Tweets thrown away (post-filtering)</h4>
+  <button class="btn btn-primary" onclick="show_graph('throwaway');">Show</button>
+  <div class="error" style="display: none;"><strong>No rate limit messages logged for this collection.</strong></div>
+</div>
+
 <script>
   function show_graph(graph_type) {
     var divid = '#' + graph_type + '-graph';

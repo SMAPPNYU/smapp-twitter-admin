@@ -126,3 +126,8 @@ class LimitMessage:
     @classmethod
     def all_for(cls, collection_name):
         return cls._collection_for(collection_name).find().sort('timestamp')
+
+class ThrowawayMessage:
+    @classmethod
+    def latest_for(cls, collection_name, count=24):
+        return list(_client[collection_name].tweets_post_filters_throwaway.find().sort('timestamp',-1).limit(count))
