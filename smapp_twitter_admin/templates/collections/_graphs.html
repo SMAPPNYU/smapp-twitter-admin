@@ -31,6 +31,9 @@
       error: function(xhr, ajaxOptions, thrownError){
         if(xhr.status == 404){
           $(divid + ' .error').show();
+        } else{
+          $(divid + ' .error').text("Unexpected error. Probably a time-out.");
+          $(divid + ' .error').show();
         }
       }
     });
