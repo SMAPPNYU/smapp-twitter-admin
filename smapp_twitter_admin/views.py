@@ -45,16 +45,16 @@ def collections(collection_name):
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
     if graph_name == 'tpm':
-        objects = Tweet.since(collection_name, datetime.utcnow()-timedelta(hours=1), n=50000)
+        args = Tweet._collection_for(collection_name)
         graph_method = graphing.tpm_plot
     elif graph_name == 'limits':
-        objects = list(LimitMessage.all_for(collection_name))
+        args = list(LimitMessage.all_for(collection_name))
         graph_method = graphing.limits_plot
     elif graph_name == 'throwaway':
-        objects = list(ThrowawayMessage.latest_for(collection_name))
+        args = list(ThrowawayMessage.latest_for(collection_name))
         graph_method = graphing.throwaway_plot
-    if len(objects) > 0:
-        graph = graph_method(objects)
+    if args:
+        graph = graph_method(args)
         response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
     else: response = 'no objects', 404
 
