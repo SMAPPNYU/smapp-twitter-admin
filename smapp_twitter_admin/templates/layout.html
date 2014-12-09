@@ -12,7 +12,7 @@
           <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
           <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" rel="stylesheet">
           <link href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
-          <link href="{{ url_for('static', filename='datepicker/css/datepicker.css') }}" rel="stylesheet">
+          <link href="{{ url_for('static', filename='bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
           <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
           <style>
             body {
@@ -48,7 +48,8 @@
     </div> <!-- /container -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url_for('static', filename='datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='bootstrap-datetimepicker/js/moment.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script>
       url = window.location;
       $('ul.nav a').filter(function() {

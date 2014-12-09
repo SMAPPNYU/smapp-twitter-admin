@@ -24,7 +24,7 @@
         <td><strong>{{ pf['filter_type'] }}</strong>(<em>tweet</em>, <strong>{{ pf['arguments'] }}</strong>)</td>
         <td>{{ pf['active'] }}</td>
         <td>{{ pf['date_added'] }}</td>
-        <td>{{ pf['date_stopped'] }}</td>
+        <td>{{ pf['date_removed'] }}</td>
         <td>
           {% if can_edit %}
             <a href="{{ url_for('post_filter_edit', collection_name=collection_name, id=pf['_id']) }}"><button class="btn btn-small btn-primary" type="button">Edit</button></a>
