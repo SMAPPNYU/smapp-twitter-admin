@@ -40,12 +40,14 @@ def collections(collection_name):
                                                     latest_tweets=latest_tweets,
                                                     count=count,
                                                     post_filters=post_filters,
+                                                    default_start_time_histogram=(datetime.utcnow()-timedelta(hours=1)).strftime('%Y-%m-%d %H:%M'),
+                                                    default_end_time_histogram=datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
                                                     can_edit=EditTwitterCollectionPermission(collection_name).can())
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):
     if graph_name == 'tpm':
-        args = Tweet._collection_for(collection_name)
+        args = (Tweet._collection_for(collection_name), request.args['start_datetime'], request.args['end_datetime'])
         graph_method = graphing.tpm_plot
     elif graph_name == 'limits':
         args = list(LimitMessage.all_for(collection_name))
@@ -54,7 +56,7 @@ def collection_graph(collection_name, graph_name):
         args = list(ThrowawayMessage.latest_for(collection_name))
         graph_method = graphing.throwaway_plot
     if args:
-        graph = graph_method(args)
+        graph = graph_method(*args)
         response = send_file(graph, as_attachment=False, attachment_filename='grph.svg', cache_timeout=0)
     else: response = 'no objects', 404
 

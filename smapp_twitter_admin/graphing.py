@@ -5,14 +5,19 @@ import seaborn as sns
 import StringIO
 import numpy as np
 from datetime import datetime, timedelta
+from dateutil import parser
 ONE_MINUTE = timedelta(minutes=1)
 
-def tpm_plot(collection):
+def tpm_plot(collection, start_datetime, end_datetime):
+    start = parser.parse(start_datetime)
+    end = parser.parse(end_datetime)
+    num_steps = int((end-start).total_seconds()/60)
+
     fig = plt.figure()
     collection.using_latest_collection_only().histogram_figure(
-        datetime.utcnow()-timedelta(hours=1),
+        start,
         step_size=timedelta(minutes=1),
-        num_steps=60,
+        num_steps=num_steps,
         show=False)
     plt.title('Tweets per minute')
     plt.xlabel('Time (UTC)')
