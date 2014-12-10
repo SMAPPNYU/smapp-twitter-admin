@@ -17,6 +17,9 @@
       <button class="btn btn-primary" onclick="show_graph('tpm');">Show</button>
     </div>
   </fieldset>
+  <div id="tpm-spinner" style="display:none;">
+    <img src="{{ url_for('static', filename = 'img/twitterspinner.gif') }}" width="128" height="128">
+  </div>
   <div class="error" style="display: none;"><strong>Collection doesn't seem to have received any tweets in this last hour.</strong></div>
 </div>
 
@@ -36,6 +39,9 @@
   <script>
     function show_graph(graph_type) {
       var divid = '#' + graph_type + '-graph';
+      var spinnerid = '#' + graph_type + '-spinner';
+      $(spinnerid).show();
+      $('.plot-controls').hide();
       $(divid + ' > button').hide();
       $.ajax({
         type: 'get',
@@ -47,10 +53,11 @@
         success: function(data){
           $(divid).append('<div class="graph" />');
           $(divid + ' .graph').append(data.documentElement);
-          $('.plot-controls').hide();
+          $(spinnerid).hide();
 
         },
         error: function(xhr, ajaxOptions, thrownError){
+          $(spinnerid).hide();
           if(xhr.status == 404){
             $(divid + ' .error').show();
           } else{
