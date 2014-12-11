@@ -79,7 +79,7 @@ def filter_criteria_create_many(collection_name):
         keywords = filter(None,[keyword.strip() for keyword in form.keywords.data.split('\n')])
         for keyword in keywords:
             FilterCriteria.create(collection_name, {'active': True, 'date_added': datetime.now(), "date_removed": None, 'filter_type': 'track', 'value': keyword})
-        return redirect(url_for('collections', collection_name=collection_name))
+        return redirect(url_for('collections', collection_name=collection_name) + '#filter-criteria')
     else:
         return render_template('filter-criteria/new-many.html')
 
@@ -100,7 +100,7 @@ def filter_criteria_create(collection_name):
         if form.date_removed.data:
             form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         FilterCriteria.create(collection_name, form.data)
-        return redirect(url_for('collections', collection_name=collection_name))
+        return redirect(url_for('collections', collection_name=collection_name) + '#filter-criteria')
     else:
         return render_template('filter-criteria/new.html', form=form)
 
@@ -121,7 +121,7 @@ def filter_criteria_update(collection_name, id):
         if form.date_removed.data:
             form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         FilterCriteria.update(collection_name, id, form.data)
-        return redirect(url_for('collections', collection_name=collection_name))
+        return redirect(url_for('collections', collection_name=collection_name) + '#filter-criteria')
     else:
         return redirect(url_for('filter_criteria_edit', collection_name=collection_name, id=id))
 
@@ -131,7 +131,7 @@ def filter_criteria_delete(collection_name, id):
         abort(403)
 
     FilterCriteria.delete(collection_name, id)
-    return redirect(url_for('collections', collection_name=collection_name))
+    return redirect(url_for('collections', collection_name=collection_name) + '#filter-criteria')
 
 @app.route('/post-filters/<collection_name>/new', methods=['GET'])
 def post_filter_new(collection_name):
@@ -149,7 +149,7 @@ def post_filter_create(collection_name):
         if form.date_removed.data:
             form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         PostFilter.create(collection_name, form.data)
-        return redirect(url_for('collections', collection_name=collection_name))
+        return redirect(url_for('collections', collection_name=collection_name) + '#post-filtering')
     else:
         return render_template('post-filters/new.html', form=form)
 
@@ -170,7 +170,7 @@ def post_filter_update(collection_name, id):
         if form.date_removed.data:
             form.date_removed.data = datetime.combine(form.data['date_removed'], datetime.min.time())
         PostFilter.update(collection_name, id, form.data)
-        return redirect(url_for('collections', collection_name=collection_name))
+        return redirect(url_for('collections', collection_name=collection_name) + '#post-filtering')
     else:
         return redirect(url_for('post_filter_edit', collection_name=collection_name, id=id))
 
@@ -180,7 +180,7 @@ def post_filter_delete(collection_name, id):
         abort(403)
 
     PostFilter.delete(collection_name, id)
-    return redirect(url_for('collections', collection_name=collection_name))
+    return redirect(url_for('collections', collection_name=collection_name) + '#post-filtering')
 
 @app.route('/post-filter-docstring/<fname>', methods=['GET'])
 def post_filter_docstring(fname):
