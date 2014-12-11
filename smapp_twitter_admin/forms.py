@@ -20,3 +20,6 @@ class PostFilterForm(Form):
     active = BooleanField('Active')
     date_added = DateField('Date Added')
     date_removed = DateField('Date Removed', validators=[Optional()])
+
+class PermissionForm(Form):
+    twitter_handle = TextField('Twitter Handle', validators=[Required()])

@@ -41,6 +41,24 @@ class Permission(Entity):
     def collections_for_user(cls, user):
         return [permission['collection_name'] for permission in cls._collection.find({'permitted': {'$in': [user]}})]
 
+    @classmethod
+    def create(cls, collection_name, twitter_handle):
+        return cls._collection.update(
+            {'collection_name': collection_name},
+            {'$addToSet': {'permitted': twitter_handle}}
+        )
+
+    @classmethod
+    def all_for(cls, collection_name):
+        return cls._collection.find_one({'collection_name': collection_name})['permitted']
+
+    @classmethod
+    def delete(cls, collection_name, twitter_handle):
+        return cls._collection.update(
+            {'collection_name': collection_name},
+            {'$pull': {'permitted': twitter_handle}}
+        )
+
 class FilterCriteria:
     @classmethod
     def _collection_for(cls, collection_name):

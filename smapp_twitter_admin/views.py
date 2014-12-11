@@ -1,7 +1,7 @@
 from smapp_twitter_admin import app
 from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter, ThrowawayMessage
 from smapp_twitter_admin.oauth_module import current_user
-from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm
+from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm, PermissionForm
 from smapp_twitter_admin.post_filters import filter_docstring
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file, abort
 from datetime import datetime, timedelta
@@ -34,12 +34,14 @@ def collections(collection_name):
     latest_tweets = Tweet.latest(collection_name, 5)[-5:]
     count = Tweet.count(collection_name)
     post_filters = PostFilter.all_for(collection_name)
+    permissions = Permission.all_for(collection_name)
 
     return render_template('collections/show.html', collection_name=collection_name,
                                                     filter_criteria=filter_criteria,
                                                     latest_tweets=latest_tweets,
                                                     count=count,
                                                     post_filters=post_filters,
+                                                    permissions=permissions,
                                                     default_start_time_histogram=(datetime.utcnow()-timedelta(hours=1)).strftime('%Y-%m-%d %H:%M'),
                                                     default_end_time_histogram=datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
                                                     can_edit=EditTwitterCollectionPermission(collection_name).can())
@@ -185,3 +187,27 @@ def post_filter_delete(collection_name, id):
 @app.route('/post-filter-docstring/<fname>', methods=['GET'])
 def post_filter_docstring(fname):
     return filter_docstring(fname)
+
+@app.route('/permissions/<collection_name>/new')
+def permission_new(collection_name):
+    form = PermissionForm()
+    return render_template('permissions/new.html', form=form, collection_name=collection_name)
+
+@app.route('/permissions/<collection_name>/create', methods=['POST'])
+def permission_create(collection_name):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+    form = PermissionForm(request.form)
+    if form.validate():
+        Permission.create(collection_name, form.data['twitter_handle'])
+        return redirect(url_for('collections', collection_name=collection_name) + '#permissions')
+    else:
+        return render_template('permissions/new.html', form=form, collection_name=collection_name)
+
+@app.route('/permissions/delete/<collection_name>/<twitter_handle>', methods=['POST'])
+def permission_delete(collection_name, twitter_handle):
+    if not EditTwitterCollectionPermission(collection_name).can():
+        abort(403)
+
+    Permission.delete(collection_name, twitter_handle)
+    return redirect(url_for('collections', collection_name=collection_name) + '#permissions')

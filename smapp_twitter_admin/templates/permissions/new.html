@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+    <a href="{{ url_for('collections', collection_name=collection_name) }}#permissions"><button class="button btn">Back</button></a>
+    <h3>Edit Permission</h3>
+    <div class="well">
+      <form method="POST" action="{{ url_for('permission_create', collection_name=collection_name) }}" class="form form-horizontal">
+        <fieldset>
+          {{ form.hidden_tag() }}
+
+          <div class="control-group">
+            <div class="control-label">{{ form.twitter_handle.label }}</div>
+
+            <div class="controls">
+              {{ form.twitter_handle() }}
+              <span class="help-block">
+                Twitter handle of user who should be given permissions to edit this collection.
+              </span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <input type="submit" value="Save" class="button btn-primary">
+          </div>
+        </fieldset>
+    </form>
+  </div>
+
+{% endblock %}
