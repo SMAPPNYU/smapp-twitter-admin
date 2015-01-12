@@ -5,9 +5,13 @@ from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyFor
 from smapp_twitter_admin.post_filters import filter_docstring
 from flask import _request_ctx_stack, session, render_template, redirect, request, url_for, send_file, abort
 from datetime import datetime, timedelta
+from werkzeug.contrib.cache import SimpleCache
 
 import smapp_twitter_admin.graphing as graphing
 from smapp_twitter_admin.authorization_module import EditTwitterCollectionPermission
+
+
+cache = SimpleCache()
 
 @app.before_request
 def user_login_check():
@@ -25,8 +29,12 @@ def welcome_view():
 
 @app.route('/dashboard')
 def dashboard():
-    collections = sorted([p['collection_name'] for p in Permission.all()])
-    return render_template('dashboard.html', collections=collections)
+    collections, collections_active = get_cached_collection_list()
+
+    # return render_template('dashboard.html', collections=zip(collections, collections_active))
+    return render_template('dashboard.html', active_collections = [collections[i] for i,a in enumerate(collections_active) if a],
+                                             inactive_collections = [collections[i] for i,a in enumerate(collections_active) if not a])
+
 
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
@@ -213,3 +221,24 @@ def permission_delete(collection_name, twitter_handle):
 
     Permission.delete(collection_name, twitter_handle)
     return redirect(url_for('collections', collection_name=collection_name) + '#permissions')
+
+def get_cached_collection_list():
+    ret = cache.get('collection-list')
+    if ret is None:
+        one_hr_ago = datetime.utcnow() - timedelta(hours=1)
+        collections = sorted([p['collection_name'] for p in Permission.all()])
+        collections_active = [False for c in collections]
+        for i,c in enumerate(collections):
+            if c in ['DebateSpain', 'ItalianTweets', 'SOTU', 'USElection']:
+                continue
+            try:
+                tweets = Tweet.latest(c,1)
+            except TypeError:
+                continue
+            try:
+                collections_active[i] = tweets[0]['timestamp'] > one_hr_ago
+            except IndexError:
+                continue
+        ret = (collections, collections_active)
+        cache.set('collection-list', ret, timeout=10*60)
+    return ret

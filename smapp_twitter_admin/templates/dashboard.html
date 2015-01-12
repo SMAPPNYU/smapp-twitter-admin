@@ -4,7 +4,17 @@
     <h1>Welcome to the Tweetome&trade;!</h1>
     <h4>Twitter collections:</h4>
     <ul class="unstyled">
-      {% for collection in collections %}
+      {% for collection in active_collections %}
+        <li>
+          <a href="{{ url_for('collections', collection_name=collection)}}">{{ collection }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <hr/>
+    <h5 class="muted">Inactive collections</h5>
+    <small class="muted">Based on a guess - these collections haven't seen an incoming tweet in over an hour...</small>
+    <ul class="unstyled">
+      {% for collection in inactive_collections %}
         <li>
           <a href="{{ url_for('collections', collection_name=collection)}}">{{ collection }}</a>
         </li>
