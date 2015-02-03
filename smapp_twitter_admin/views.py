@@ -1,5 +1,6 @@
+import bson.json_util as json
 from smapp_twitter_admin import app
-from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter, ThrowawayMessage
+from smapp_twitter_admin.models import Permission, FilterCriteria, Tweet, LimitMessage, PostFilter, ThrowawayMessage, CollectionStats
 from smapp_twitter_admin.oauth_module import current_user
 from smapp_twitter_admin.forms import FilterCriterionForm, FilterCriteriaManyForm, PostFilterForm, PermissionForm
 from smapp_twitter_admin.post_filters import filter_docstring
@@ -31,7 +32,6 @@ def welcome_view():
 def dashboard():
     collections, collections_active = get_cached_collection_list()
 
-    # return render_template('dashboard.html', collections=zip(collections, collections_active))
     return render_template('dashboard.html', active_collections = [collections[i] for i,a in enumerate(collections_active) if a],
                                              inactive_collections = [collections[i] for i,a in enumerate(collections_active) if not a])
 
@@ -43,6 +43,7 @@ def collections(collection_name):
     count = Tweet.count(collection_name)
     post_filters = PostFilter.all_for(collection_name)
     permissions = Permission.all_for(collection_name)
+    show_map_link = any(fc['filter_type'] == 'geo' for fc in filter_criteria)
 
     return render_template('collections/show.html', collection_name=collection_name,
                                                     filter_criteria=filter_criteria,
@@ -52,6 +53,7 @@ def collections(collection_name):
                                                     permissions=permissions,
                                                     default_start_time_histogram=(datetime.utcnow()-timedelta(hours=1)).strftime('%Y-%m-%d %H:%M'),
                                                     default_end_time_histogram=datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
+                                                    show_map_link=show_map_link,
                                                     can_edit=EditTwitterCollectionPermission(collection_name).can())
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
@@ -76,8 +78,6 @@ def collection_graph(collection_name, graph_name):
 
 @app.route('/filter-criteria/<collection_name>/new-many', methods=['GET'])
 def filter_criteria_new_many(collection_name):
-    # form = FilterCriterionForm(active=True, date_added=datetime.now())
-    # return render_template('filter-criteria/new.html', form=form, collection_name=collection_name)
     form = FilterCriteriaManyForm()
     return render_template('filter-criteria/new-many.html', form=form, collection_name=collection_name)
 
@@ -144,6 +144,14 @@ def filter_criteria_delete(collection_name, id):
 
     FilterCriteria.delete(collection_name, id)
     return redirect(url_for('collections', collection_name=collection_name) + '#filter-criteria')
+
+@app.route('/filter-criteria/<collection_name>/map', methods=['GET'])
+def geo_filters_map(collection_name):
+    filter_criteria = [fc for fc in FilterCriteria.find_by_collection_name(collection_name) if fc['filter_type'] == 'geo']
+    boxes = [[float(e) for e in fc['value']] for fc in filter_criteria]
+
+    return render_template('map/map.html', boxes=boxes)
+
 
 @app.route('/post-filters/<collection_name>/new', methods=['GET'])
 def post_filter_new(collection_name):
@@ -221,6 +229,12 @@ def permission_delete(collection_name, twitter_handle):
 
     Permission.delete(collection_name, twitter_handle)
     return redirect(url_for('collections', collection_name=collection_name) + '#permissions')
+
+@app.route('/collections/<collection_name>/stats')
+def collection_stats(collection_name):
+    filter_criteria = {str(fc['_id']): fc for fc in FilterCriteria.find_by_collection_name(collection_name)}
+    stats = CollectionStats.all_since(collection_name, datetime.utcnow()-timedelta(weeks=4))
+    return json.dumps({'filter-criteria': filter_criteria, 'stats': stats})
 
 def get_cached_collection_list():
     ret = cache.get('collection-list')

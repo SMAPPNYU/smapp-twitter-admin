@@ -9,6 +9,7 @@
       <li><a data-target="#filter-criteria" data-toggle="tab">Filter Criteria</a></li>
       <li><a data-target="#post-filtering" data-toggle="tab">Post-filtering</a></li>
       <li><a data-target="#permissions" data-toggle="tab">Collection permissions</a></li>
+      <li><a data-target="#stats" data-toggle="tab">Filter criteria statistics</a></li>
     </ul>
      
     <div class="tab-content">
@@ -30,6 +31,10 @@
 
       <div class="tab-pane" id="permissions">
         {% include 'collections/_permissions.html' %}
+      </div>
+
+      <div class="tab-pane" id="stats">
+        {% include 'collections/_stats.html' %}
       </div>
     </div>
   </div>

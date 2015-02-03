@@ -149,3 +149,17 @@ class ThrowawayMessage:
     @classmethod
     def latest_for(cls, collection_name, count=24):
         return list(_client[collection_name].tweets_post_filters_throwaway.find().sort('timestamp',-1).limit(count))
+
+class CollectionStats:
+    @classmethod
+    def _collection_for(cls, collection_name):
+        mongo_col_name = _metadata_for(collection_name).get('keywordstats_collection', 'tweets_keywordstats')
+        return _client[collection_name][mongo_col_name]
+
+    @classmethod
+    def all_for(cls, collection_name):
+        return cls._collection_for(collection_name).find().sort('start_time')
+
+    @classmethod
+    def all_since(cls, collection_name, since=datetime(2015,1,1)):
+        return cls._collection_for(collection_name).find({'start_time': {'$gt': since}}).sort('start_time')

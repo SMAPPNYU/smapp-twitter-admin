@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+ 
+<!-- Set a style for our worldshape-data -->
+  <style>
+  path {
+    stroke: red;
+    stroke-width: 0.5px;
+    fill: grey;
+  }
+  </style>
+<body>
+ 
+  <!-- implementation of the hosted D3- and TopoJson js-libraries -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v0.min.js"></script>
+   
+  <!-- map creation --> 
+  <script>
+    Array.prototype.chunk = function(chunkSize) {
+        var array=this;
+        return [].concat.apply([],
+            array.map(function(elem,i) {
+                return i%chunkSize ? [] : [array.slice(i,i+chunkSize)];
+            })
+        );
+    }
+  </script>
+
+  <script>
+  var boxes = {{ boxes }};
+
+  var souhernmostPoint = boxes[0][1];
+  for(var i=1; i < boxes.length; i++) {
+    p = boxes[i][1];
+    if(p < souhernmostPoint) {
+      souhernmostPoint = p;
+    }
+  }
+
+  var northernmostPoint = boxes[0][3]
+  for(var i=1; i < boxes.length; i++) {
+    p = boxes[i][3];
+    if(p > northernmostPoint) {
+      northernmostPoint = p;
+    }
+  }
+
+  var westernmostPoint = boxes[0][0];
+  for(var i=1; i < boxes.length; i++) {
+    p = boxes[i][0];
+    if(p < westernmostPoint) {
+      westernmostPoint = p;
+    }
+  }
+
+  var easternmostPoint = boxes[0][2];
+  for(var i=1; i < boxes.length; i++) {
+    p = boxes[i][2];
+    if(p > easternmostPoint) {
+      easternmostPoint = p;
+    }
+  }
+
+
+  // canvas resolution
+  var width = 1000,
+      height = 600;
+
+  var center = [(northernmostPoint - souhernmostPoint)/2, (easternmostPoint - westernmostPoint)/2];
+  // var scale = 40*width/(easternmostPoint - westernmostPoint);
+  var scale =150;
+ 
+  // projection-settings for mercator    
+  var projection = d3.geo.mercator()
+      // where to center the map in degrees
+      .center(center)
+      // zoomlevel
+      .scale(scale)
+      // map-rotation
+      .rotate([0,0]);
+ 
+  // defines "svg" as data type and "make canvas" command
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+ 
+  // defines "path" as return of geographic features
+  var path = d3.geo.path()
+      .projection(projection);
+ 
+  // group the svg layers 
+  var g = svg.append("g");
+ 
+  var drawBoxes = function() {
+    for(var i = 0; i < boxes.length; i++) {
+      var box = boxes[i];
+      var x=box[0], y=box[3];
+      var height = y - box[1];
+      var width = box[2] - x;
+
+
+      var topLeftPoint = projection([x,y]);
+      var bottomRightPoint = projection([x+width, y-height]);
+      var projWidth = bottomRightPoint[0] - topLeftPoint[0];
+      var projHeight = bottomRightPoint[1] - topLeftPoint[1];
+
+      g.append("rect")
+        .attr("class", "rect")
+        .attr("x", topLeftPoint[0])
+        .attr("y", topLeftPoint[1])
+        .attr("width", projWidth)
+        .attr("height", projHeight)
+        .attr("fill", "none")
+        .attr("stroke", "green")
+        .attr("stroke-width", 5);
+    }
+  }
+
+
+  // load data and display the map on the canvas with country geometries
+  d3.json("{{ url_for('static', filename='map/world-110m.json') }}", function(error, topology) {
+      g.selectAll("path")
+        .data(topojson.object(topology, topology.objects.countries)
+            .geometries)
+      .enter()
+        .append("path")
+        .attr("d", path);
+      drawBoxes();
+  });
+ 
+  // zoom and pan functionality
+  var zoom = d3.behavior.zoom()
+      .on("zoom",function() {
+          g.attr("transform","translate("+ 
+              d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+          g.selectAll("path")  
+              .attr("d", path.projection(projection)); 
+    });
+ 
+  svg.call(zoom)
+  </script>
+</body>
+</html>

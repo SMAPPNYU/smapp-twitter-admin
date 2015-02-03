@@ -8,6 +8,10 @@
   <a href="{{ url_for('filter_criteria_new_many', collection_name=collection_name) }}"><button class="btn btn-success">Add multiple terms</button></a>
 {% endif %}
 
+{% if show_map_link %}
+  <a href="{{ url_for('geo_filters_map', collection_name=collection_name) }}" target="_blank"><button class="btn btn-primary">Show geoboxes</button></a>
+{% endif %}
+
 <table class="table table-striped table-condensed">
   <thead>
       <tr>

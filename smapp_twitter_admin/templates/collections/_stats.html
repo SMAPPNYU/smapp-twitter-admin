@@ -1,0 +1,25 @@
+<h3>Filter Criteria Statistics</h3>
+<p>Filter criteria used to query the <a href="https://dev.twitter.com/streaming/overview/request-parameters">Twitter Streaming API</a>.</p>
+
+<span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria.count()) }}</span>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script>
+  var resp;
+  $.getJSON('/collections/{{ collection_name }}/stats', function( data ) {
+    resp = data;
+    var fc_names = _.map(resp['filter-criteria'], function(e){ return e['filter_type'] + ': ' + e['value'] });
+
+    // Today
+    var today_counts = _.map(resp[''])
+
+    var today = [[],[]];
+
+
+    // This week
+
+    // This month
+
+  });
+</script>
