@@ -1,7 +1,7 @@
 <h3>Filter Criteria Statistics</h3>
 <p>Filter criteria used to query the <a href="https://dev.twitter.com/streaming/overview/request-parameters">Twitter Streaming API</a>.</p>
 
-<span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria.count()) }}</span>
+<span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria|length) }}</span>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>

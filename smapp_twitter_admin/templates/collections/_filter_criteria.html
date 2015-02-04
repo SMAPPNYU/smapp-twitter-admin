@@ -1,7 +1,7 @@
 <h3>Filter Criteria</h3>
 <p>Filter criteria used to query the <a href="https://dev.twitter.com/streaming/overview/request-parameters">Twitter Streaming API</a>.</p>
 
-<span class="pull-right muted">Count: {{ "{:,}".format(filter_criteria.count()) }}</span>
+<span class="pull-right muted">Count: {{ filter_criteria|length }}</span>
 
 {% if can_edit %}
   <a href="{{ url_for('filter_criteria_new', collection_name=collection_name) }}"><button class="btn btn-success">Add filter criterion</button></a>

@@ -38,7 +38,7 @@ def dashboard():
 
 @app.route('/collections/<collection_name>')
 def collections(collection_name):
-    filter_criteria = FilterCriteria.find_by_collection_name(collection_name)
+    filter_criteria = list(FilterCriteria.find_by_collection_name(collection_name))
     latest_tweets = Tweet.latest(collection_name, 5)[-5:]
     count = Tweet.count(collection_name)
     post_filters = PostFilter.all_for(collection_name)
