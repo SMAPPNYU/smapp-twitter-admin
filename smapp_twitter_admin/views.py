@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from werkzeug.contrib.cache import SimpleCache
 
 import smapp_twitter_admin.graphing as graphing
-from smapp_twitter_admin.authorization_module import EditTwitterCollectionPermission
+from smapp_twitter_admin.authorization_module import EditTwitterCollectionPermission, admin_permission
 
 
 cache = SimpleCache()
@@ -29,6 +29,7 @@ def welcome_view():
         return render_template('welcome.html')
 
 @app.route('/dashboard')
+@admin_permission.require(http_exception=403)
 def dashboard():
     collections, collections_active = get_cached_collection_list()
 
@@ -37,6 +38,7 @@ def dashboard():
 
 
 @app.route('/collections/<collection_name>')
+@admin_permission.require(http_exception=403)
 def collections(collection_name):
     filter_criteria = list(FilterCriteria.find_by_collection_name(collection_name))
     latest_tweets = Tweet.latest(collection_name, 5)[-5:]
@@ -235,6 +237,10 @@ def collection_stats(collection_name):
     filter_criteria = {str(fc['_id']): fc for fc in FilterCriteria.find_by_collection_name(collection_name)}
     stats = CollectionStats.all_since(collection_name, datetime.utcnow()-timedelta(weeks=4))
     return json.dumps({'filter-criteria': filter_criteria, 'stats': stats})
+
+@app.errorhandler(403)
+def permission_denied(e):
+    return "@{} not authorized.".format(current_user())
 
 def get_cached_collection_list():
     ret = cache.get('collection-list')

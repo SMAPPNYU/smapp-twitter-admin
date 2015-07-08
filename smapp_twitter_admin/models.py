@@ -79,6 +79,7 @@ class FilterCriteria:
 
     @classmethod
     def delete(cls, collection_name, id):
+        # dont remove... update!
         return cls._collection_for(collection_name).remove({'_id': ObjectId(id)})
 
     @classmethod

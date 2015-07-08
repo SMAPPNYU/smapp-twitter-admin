@@ -13,6 +13,9 @@ principals = Principal(app)
 TwitterCollectionNeed = namedtuple('blog_post', ['method', 'value'])
 EditTwitterCollectionNeed = partial(TwitterCollectionNeed, 'edit')
 
+
+admin_permission = Permission(RoleNeed('admin'))
+
 class EditTwitterCollectionPermission(Permission):
     def __init__(self, post_id):
         need = EditTwitterCollectionNeed(unicode(post_id))
@@ -39,6 +42,9 @@ def on_identity_loaded(sender, identity):
     if hasattr(current_user, 'posts'):
         for post in current_user.posts:
             identity.provides.add(EditTwitterCollectionNeed(unicode(post.id)))
+
+    if len(models.Permission.collections_for_user(current_user())) > 0:
+        identity.provides.add(RoleNeed('admin'))
 
     for authorized_collection in models.Permission.collections_for_user(current_user()):
         identity.provides.add(EditTwitterCollectionNeed(unicode(authorized_collection)))
