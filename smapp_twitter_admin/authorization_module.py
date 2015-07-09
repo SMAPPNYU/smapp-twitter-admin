@@ -43,6 +43,7 @@ def on_identity_loaded(sender, identity):
         for post in current_user.posts:
             identity.provides.add(EditTwitterCollectionNeed(unicode(post.id)))
 
+    # Give the user the permissions
     if len(models.Permission.collections_for_user(current_user())) > 0:
         identity.provides.add(RoleNeed('admin'))
 
