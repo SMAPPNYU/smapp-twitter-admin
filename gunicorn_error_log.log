@@ -1,0 +1,7 @@
+2016-02-15 23:27:38 [6098] [INFO] Starting gunicorn 19.0.0
+2016-02-15 23:27:38 [6098] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (6098)
+2016-02-15 23:27:38 [6098] [INFO] Using worker: sync
+2016-02-15 23:27:38 [6103] [INFO] Booting worker with pid: 6103
+2016-02-15 23:27:38 [6104] [INFO] Booting worker with pid: 6104
+2016-02-15 23:27:38 [6105] [INFO] Booting worker with pid: 6105
+2016-02-15 23:27:38 [6110] [INFO] Booting worker with pid: 6110
