@@ -27,3 +27,5 @@ source /home/smapp/.venvs/smapp-twitter-admin/bin/activate
 
 python runserver.py # where debug is set to true in app.run
 ```
+
+Then go to port 5000/ of whatever server/ip is running the flask app.
