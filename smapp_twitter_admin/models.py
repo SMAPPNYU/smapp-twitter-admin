@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient
 from smapp_toolkit.twitter import MongoTweetCollection
 from datetime import datetime, timedelta
+from requests.utils import quote
 
 # create a client to auth on the admin db
 _client = MongoClient(app.config['authdb']['host'], app.config['authdb'].get('port', 27017))
@@ -124,9 +125,10 @@ class PostFilter:
 class Tweet:
     @classmethod
     def _collection_for(cls, collection_name):
+        # quote % escapes special chars in the password string so that mongo can auth.
         return MongoTweetCollection(address=app.config['individualdb']['host'], port=app.config['individualdb'].get('port', 27017),
                                     dbname=collection_name, username=app.config['individualdb']['username'],
-                                    password=app.config['individualdb']['password'])
+                                    password=quote(app.config['individualdb']['password'], safe=''))
     @classmethod
     def count(cls, collection_name):
         return cls._collection_for(collection_name).count()
