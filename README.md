@@ -29,3 +29,42 @@ python runserver.py # where debug is set to true in app.run
 ```
 
 Then go to port 5000/ of whatever server/ip is running the flask app.
+
+Settings file structure:
+
+```yaml
+SECRET_KEY: 1234567890
+
+TWITTER:
+    consumer_key: my_secret_consumer_key
+    consumer_secret: my_consumer_secret
+    
+individualdb:
+    host: localhost
+    port: 27017
+    username: username
+    password: password
+
+authdb:
+    host: localhost
+    port: 27017
+    username: username
+    password: password
+
+collection-name-exceptions:
+    PostCommunist:
+        tweets: russia_tweets
+        filter-criteria: 'russia_tweets_filter_criteria'
+    test:
+        filter-criteria: 'test_tweets_filter_criteria'
+```
+
+SECRET_KEY - no idea what it does
+TWITTER - twitter app info to allow twitter login to dashboard
+authdb - authentication database credentials
+individualdb - auth details for each individual db
+collection-name-exceptions - no idea
+
+The way the flask app works is that in models.py it authenticates once to the admin db. then it authenticates to each individual db.
+
+We need credentials for both. Before they shared the same credentials, now they have different ones. (admin vs non admin)
