@@ -5,3 +5,784 @@
 2016-02-15 23:27:38 [6104] [INFO] Booting worker with pid: 6104
 2016-02-15 23:27:38 [6105] [INFO] Booting worker with pid: 6105
 2016-02-15 23:27:38 [6110] [INFO] Booting worker with pid: 6110
+2016-02-16 00:58:42 [6103] [INFO] Worker exiting (pid: 6103)
+2016-02-16 00:58:42 [6098] [INFO] Handling signal: term
+2016-02-16 00:58:42 [6110] [INFO] Worker exiting (pid: 6110)
+2016-02-16 00:58:42 [6105] [INFO] Worker exiting (pid: 6105)
+2016-02-16 00:58:42 [6104] [INFO] Worker exiting (pid: 6104)
+2016-02-16 00:58:42 [15621] [INFO] Starting gunicorn 19.0.0
+2016-02-16 00:58:42 [15621] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (15621)
+2016-02-16 00:58:42 [15621] [INFO] Using worker: sync
+2016-02-16 00:58:42 [15626] [INFO] Booting worker with pid: 15626
+2016-02-16 00:58:42 [15627] [INFO] Booting worker with pid: 15627
+2016-02-16 00:58:42 [15628] [INFO] Booting worker with pid: 15628
+2016-02-16 00:58:42 [15629] [INFO] Booting worker with pid: 15629
+2016-02-16 00:58:42 [6098] [INFO] Shutting down: Master
+2016-02-16 12:54:52 [15626] [INFO] Worker exiting (pid: 15626)
+2016-02-16 12:54:52 [15621] [INFO] Handling signal: term
+2016-02-16 12:54:52 [15629] [INFO] Worker exiting (pid: 15629)
+2016-02-16 12:54:52 [15627] [INFO] Worker exiting (pid: 15627)
+2016-02-16 12:54:52 [15628] [INFO] Worker exiting (pid: 15628)
+2016-02-16 12:54:53 [15621] [INFO] Shutting down: Master
+2016-02-16 15:25:41 [6777] [INFO] Starting gunicorn 19.0.0
+2016-02-16 15:25:41 [6777] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (6777)
+2016-02-16 15:25:41 [6777] [INFO] Using worker: sync
+2016-02-16 15:25:41 [6782] [INFO] Booting worker with pid: 6782
+2016-02-16 15:25:41 [6783] [INFO] Booting worker with pid: 6783
+2016-02-16 15:25:41 [6784] [INFO] Booting worker with pid: 6784
+2016-02-16 15:25:41 [6785] [INFO] Booting worker with pid: 6785
+2016-02-16 15:25:46 [6782] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=ODY3MTE5OTA1NzM5', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py2016-02-16 15:25:46 [6785] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=MzQ0NDg3MDE1NDYx', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=ODY3MTE5OTA1NzM5', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 15:25:46 [6784] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=OTE5NjM4ODM3NjM=', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=MzQ0NDg3MDE1NDYx', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=OTE5NjM4ODM3NjM=', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 15:25:46 [6783] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=NzY1NDU1ODM2MTIx', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=NzY1NDU1ODM2MTIx', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 15:25:46 [6782] [INFO] Worker exiting (pid: 6782)
+2016-02-16 15:25:46 [6785] [INFO] Worker exiting (pid: 6785)
+2016-02-16 15:25:46 [6784] [INFO] Worker exiting (pid: 6784)
+2016-02-16 15:25:46 [6783] [INFO] Worker exiting (pid: 6783)
+2016-02-16 17:21:59 [16241] [INFO] Starting gunicorn 19.0.0
+2016-02-16 17:21:59 [16241] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (16241)
+2016-02-16 17:21:59 [16241] [INFO] Using worker: sync
+2016-02-16 17:21:59 [16246] [INFO] Booting worker with pid: 16246
+2016-02-16 17:21:59 [16247] [INFO] Booting worker with pid: 16247
+2016-02-16 17:21:59 [16248] [INFO] Booting worker with pid: 16248
+2016-02-16 17:21:59 [16252] [INFO] Booting worker with pid: 16252
+2016-02-16 17:22:00 [16246] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=NjExOTA5NDY1NjU0', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=NjExOTA5NDY1NjU0', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 17:22:00 [16246] [INFO] Worker exiting (pid: 16246)
+2016-02-16 17:22:00 [16247] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=MzM1NjcyNTQwNTYz', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=MzM1NjcyNTQwNTYz', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 17:22:00 [16247] [INFO] Worker exiting (pid: 16247)
+2016-02-16 17:22:00 [16248] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=OTkzMTA0MzgyMjY4', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=OTkzMTA0MzgyMjY4', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 17:22:00 [16248] [INFO] Worker exiting (pid: 16248)
+2016-02-16 17:22:00 [16252] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=Njc2Mjk1NjkxMzc=', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+Traceback (most recent call last):
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 502, in spawn_worker
+    worker.init_process()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/__init__.py", line 9, in <module>
+    import smapp_twitter_admin.authorization_module
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/authorization_module.py", line 2, in <module>
+    import smapp_twitter_admin.models as models
+  File "/home/smapp/smapp-twitter-admin/smapp_twitter_admin/models.py", line 12, in <module>
+    _client.admin.authenticate(app.config['authdb']['username'], app.config['authdb']['password'])
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/database.py", line 1023, in authenticate
+    connect=True)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/mongo_client.py", line 423, in _cache_credentials
+    sock_info.authenticate(credentials)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 317, in authenticate
+    auth.authenticate(credentials, self)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 436, in authenticate
+    auth_func(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 416, in _authenticate_default
+    return _authenticate_scram_sha1(credentials, sock_info)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/auth.py", line 188, in _authenticate_scram_sha1
+    res = sock_info.command(source, cmd)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/pool.py", line 213, in command
+    read_concern)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/network.py", line 101, in command
+    helpers._check_command_response(response_doc, msg, allowable_errors)
+  File "/home/smapp/.venvs/smapp-twitter-admin/local/lib/python2.7/site-packages/pymongo/helpers.py", line 196, in _check_command_response
+    raise OperationFailure(msg % errmsg, code, response)
+OperationFailure: command SON([('saslStart', 1), ('mechanism', 'SCRAM-SHA-1'), ('payload', Binary('n,,n=smapp_readWrite_Admin,r=Njc2Mjk1NjkxMzc=', 0)), ('autoAuthorize', 1)]) on namespace admin.$cmd failed: Authentication failed.
+2016-02-16 17:22:00 [16252] [INFO] Worker exiting (pid: 16252)
+2016-02-16 18:09:23 [21542] [INFO] Starting gunicorn 19.0.0
+2016-02-16 18:09:23 [21542] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (21542)
+2016-02-16 18:09:23 [21542] [INFO] Using worker: sync
+2016-02-16 18:09:23 [21547] [INFO] Booting worker with pid: 21547
+2016-02-16 18:09:23 [21548] [INFO] Booting worker with pid: 21548
+2016-02-16 18:09:23 [21549] [INFO] Booting worker with pid: 21549
+2016-02-16 18:09:23 [21550] [INFO] Booting worker with pid: 21550
+2016-02-16 22:04:52 [21550] [INFO] Worker exiting (pid: 21550)
+2016-02-16 22:04:52 [21542] [INFO] Handling signal: term
+2016-02-16 22:04:52 [21549] [INFO] Worker exiting (pid: 21549)
+2016-02-16 22:04:52 [21548] [INFO] Worker exiting (pid: 21548)
+2016-02-16 22:04:52 [21547] [INFO] Worker exiting (pid: 21547)
+2016-02-16 22:04:53 [21542] [INFO] Shutting down: Master
+2016-02-16 22:12:30 [27475] [INFO] Starting gunicorn 19.0.0
+2016-02-16 22:12:30 [27475] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (27475)
+2016-02-16 22:12:30 [27475] [INFO] Using worker: sync
+2016-02-16 22:12:30 [27480] [INFO] Booting worker with pid: 27480
+2016-02-16 22:12:30 [27481] [INFO] Booting worker with pid: 27481
+2016-02-16 22:12:30 [27482] [INFO] Booting worker with pid: 27482
+2016-02-16 22:12:30 [27483] [INFO] Booting worker with pid: 27483
+2016-02-16 22:39:11 [27480] [INFO] Worker exiting (pid: 27480)
+2016-02-16 22:39:11 [27475] [INFO] Handling signal: term
+2016-02-16 22:39:11 [27482] [INFO] Worker exiting (pid: 27482)
+2016-02-16 22:39:11 [27483] [INFO] Worker exiting (pid: 27483)
+2016-02-16 22:39:11 [27481] [INFO] Worker exiting (pid: 27481)
+2016-02-16 22:39:11 [30801] [INFO] Starting gunicorn 19.0.0
+2016-02-16 22:39:11 [30801] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (30801)
+2016-02-16 22:39:11 [30801] [INFO] Using worker: sync
+2016-02-16 22:39:11 [30806] [INFO] Booting worker with pid: 30806
+2016-02-16 22:39:11 [30807] [INFO] Booting worker with pid: 30807
+2016-02-16 22:39:11 [30808] [INFO] Booting worker with pid: 30808
+2016-02-16 22:39:11 [30809] [INFO] Booting worker with pid: 30809
+2016-02-16 22:39:11 [27475] [INFO] Shutting down: Master
+2016-02-16 22:39:33 [30807] [INFO] Worker exiting (pid: 30807)
+2016-02-16 22:39:33 [30806] [INFO] Worker exiting (pid: 30806)
+2016-02-16 22:39:33 [30801] [INFO] Handling signal: term
+2016-02-16 22:39:33 [30809] [INFO] Worker exiting (pid: 30809)
+2016-02-16 22:39:33 [30808] [INFO] Worker exiting (pid: 30808)
+2016-02-16 22:39:33 [30832] [INFO] Starting gunicorn 19.0.0
+2016-02-16 22:39:33 [30832] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (30832)
+2016-02-16 22:39:33 [30832] [INFO] Using worker: sync
+2016-02-16 22:39:33 [30837] [INFO] Booting worker with pid: 30837
+2016-02-16 22:39:33 [30838] [INFO] Booting worker with pid: 30838
+2016-02-16 22:39:33 [30841] [INFO] Booting worker with pid: 30841
+2016-02-16 22:39:33 [30842] [INFO] Booting worker with pid: 30842
+2016-02-16 22:39:34 [30801] [INFO] Shutting down: Master
+2016-02-16 22:51:45 [30837] [INFO] Worker exiting (pid: 30837)
+2016-02-16 22:51:45 [30832] [INFO] Handling signal: term
+2016-02-16 22:51:45 [30841] [INFO] Worker exiting (pid: 30841)
+2016-02-16 22:51:45 [30842] [INFO] Worker exiting (pid: 30842)
+2016-02-16 22:51:45 [30838] [INFO] Worker exiting (pid: 30838)
+2016-02-16 22:51:45 [32018] [INFO] Starting gunicorn 19.0.0
+2016-02-16 22:51:45 [32018] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (32018)
+2016-02-16 22:51:45 [32018] [INFO] Using worker: sync
+2016-02-16 22:51:45 [32023] [INFO] Booting worker with pid: 32023
+2016-02-16 22:51:45 [32024] [INFO] Booting worker with pid: 32024
+2016-02-16 22:51:45 [32025] [INFO] Booting worker with pid: 32025
+2016-02-16 22:51:45 [32026] [INFO] Booting worker with pid: 32026
+2016-02-16 22:51:45 [30832] [INFO] Shutting down: Master
+2016-02-16 23:01:47 [32023] [INFO] Worker exiting (pid: 32023)
+2016-02-16 23:01:47 [32018] [INFO] Handling signal: term
+2016-02-16 23:01:47 [32024] [INFO] Worker exiting (pid: 32024)
+2016-02-16 23:01:47 [32025] [INFO] Worker exiting (pid: 32025)
+2016-02-16 23:01:47 [32026] [INFO] Worker exiting (pid: 32026)
+2016-02-16 23:01:47 [1245] [INFO] Starting gunicorn 19.0.0
+2016-02-16 23:01:47 [1245] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (1245)
+2016-02-16 23:01:47 [1245] [INFO] Using worker: sync
+2016-02-16 23:01:47 [1250] [INFO] Booting worker with pid: 1250
+2016-02-16 23:01:47 [1251] [INFO] Booting worker with pid: 1251
+2016-02-16 23:01:47 [1252] [INFO] Booting worker with pid: 1252
+2016-02-16 23:01:47 [1253] [INFO] Booting worker with pid: 1253
+2016-02-16 23:01:47 [32018] [INFO] Shutting down: Master
+2016-02-16 23:01:59 [1252] [INFO] Worker exiting (pid: 1252)
+2016-02-16 23:01:59 [1245] [INFO] Handling signal: term
+2016-02-16 23:01:59 [1291] [INFO] Starting gunicorn 19.0.0
+2016-02-16 23:01:59 [1291] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (1291)
+2016-02-16 23:01:59 [1291] [INFO] Using worker: sync
+2016-02-16 23:01:59 [1298] [INFO] Booting worker with pid: 1298
+2016-02-16 23:01:59 [1299] [INFO] Booting worker with pid: 1299
+2016-02-16 23:01:59 [1303] [INFO] Booting worker with pid: 1303
+2016-02-16 23:01:59 [1304] [INFO] Booting worker with pid: 1304
+2016-02-16 23:02:00 [1251] [INFO] Worker exiting (pid: 1251)
+2016-02-16 23:02:01 [1250] [INFO] Worker exiting (pid: 1250)
+2016-02-16 23:02:01 [1253] [INFO] Worker exiting (pid: 1253)
+2016-02-16 23:02:01 [1245] [INFO] Shutting down: Master
+2016-02-16 23:03:00 [1298] [INFO] Worker exiting (pid: 1298)
+2016-02-16 23:03:00 [1299] [INFO] Worker exiting (pid: 1299)
+2016-02-16 23:03:00 [1291] [INFO] Handling signal: term
+2016-02-16 23:03:00 [1304] [INFO] Worker exiting (pid: 1304)
+2016-02-16 23:03:00 [1303] [INFO] Worker exiting (pid: 1303)
+2016-02-16 23:03:00 [1334] [INFO] Starting gunicorn 19.0.0
+2016-02-16 23:03:00 [1334] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (1334)
+2016-02-16 23:03:00 [1334] [INFO] Using worker: sync
+2016-02-16 23:03:00 [1339] [INFO] Booting worker with pid: 1339
+2016-02-16 23:03:00 [1340] [INFO] Booting worker with pid: 1340
+2016-02-16 23:03:00 [1341] [INFO] Booting worker with pid: 1341
+2016-02-16 23:03:00 [1344] [INFO] Booting worker with pid: 1344
+2016-02-16 23:03:01 [1291] [INFO] Shutting down: Master
+2016-02-17 01:45:32 [1344] [INFO] Worker exiting (pid: 1344)
+2016-02-17 01:45:32 [1340] [INFO] Worker exiting (pid: 1340)
+2016-02-17 01:45:32 [1334] [INFO] Handling signal: term
+2016-02-17 01:45:32 [1341] [INFO] Worker exiting (pid: 1341)
+2016-02-17 01:45:32 [1339] [INFO] Worker exiting (pid: 1339)
+2016-02-17 01:45:32 [20761] [INFO] Starting gunicorn 19.0.0
+2016-02-17 01:45:32 [20761] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (20761)
+2016-02-17 01:45:32 [20761] [INFO] Using worker: sync
+2016-02-17 01:45:32 [20766] [INFO] Booting worker with pid: 20766
+2016-02-17 01:45:33 [20767] [INFO] Booting worker with pid: 20767
+2016-02-17 01:45:33 [20770] [INFO] Booting worker with pid: 20770
+2016-02-17 01:45:33 [20771] [INFO] Booting worker with pid: 20771
+2016-02-17 01:45:33 [1334] [INFO] Shutting down: Master
+2016-02-17 11:21:24 [20766] [INFO] Worker exiting (pid: 20766)
+2016-02-17 11:21:24 [20761] [INFO] Handling signal: term
+2016-02-17 11:21:24 [20767] [INFO] Worker exiting (pid: 20767)
+2016-02-17 11:21:24 [20771] [INFO] Worker exiting (pid: 20771)
+2016-02-17 11:21:24 [20770] [INFO] Worker exiting (pid: 20770)
+2016-02-17 11:21:24 [12734] [INFO] Starting gunicorn 19.0.0
+2016-02-17 11:21:24 [12734] [INFO] Listening at: unix:/tmp/gunicorn_flask.sock (12734)
+2016-02-17 11:21:24 [12734] [INFO] Using worker: sync
+2016-02-17 11:21:24 [12739] [INFO] Booting worker with pid: 12739
+2016-02-17 11:21:24 [12740] [INFO] Booting worker with pid: 12740
+2016-02-17 11:21:24 [12741] [INFO] Booting worker with pid: 12741
+2016-02-17 11:21:24 [12742] [INFO] Booting worker with pid: 12742
+2016-02-17 11:21:25 [20761] [INFO] Shutting down: Master
