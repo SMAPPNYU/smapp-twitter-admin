@@ -1,3 +1,5 @@
 settings.yaml
 *.pyc
 logs/
+*.log
+restart_server.sh

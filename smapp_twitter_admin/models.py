@@ -1,3 +1,4 @@
+import pymongo
 from smapp_twitter_admin import app
 from bson.objectid import ObjectId
 from pymongo import MongoClient
@@ -137,7 +138,14 @@ class Tweet:
 
     @classmethod
     def latest(cls, collection_name, n):
-        return list(cls._collection_for(collection_name).using_latest_collection_only().sort('timestamp',-1).limit(n))
+        try:
+            ret = list(cls._collection_for(collection_name).using_latest_collection_only().sort('timestamp',-1).limit(n))
+        except pymongo.errors.OperationFailure:
+            import IPython
+            IPython.embed()
+            ret = list()
+        return ret
+
 
 
 class LimitMessage:
