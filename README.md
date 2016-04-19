@@ -17,9 +17,11 @@ or just run
 
 killall gunicorn
 
-/home/smapp/.venvs/smapp-twitter-admin/bin/gunicorn smapp_twitter_admin:app -b unix:/tmp/gunicorn_flask.sock -w 4 -t 120 -D --access-logfile gunicorn_access_log.log --error-logfile gunicorn_error_log.log
-
+/home/smapp/.venvs/smapp-twitter-admin/bin/gunicorn smapp_twitter_admin:app -b 127.0.0.1:8000 -w 4 -t 120 -D --access-logfile gunicorn_access_log.log --error-logfile gunicorn_error_log.log
 ``` 
+
+ALSO:
+make sure to have a tunnel to db.
 
 To find an internal server error, run:
 ```sh
@@ -68,3 +70,17 @@ collection-name-exceptions - no idea
 The way the flask app works is that in models.py it authenticates once to the admin db. then it authenticates to each individual db.
 
 We need credentials for both. Before they shared the same credentials, now they have different ones. (admin vs non admin)
+
+resources:
+
+How to setup nginx and gunicorn on a new server:
+
+http://blog.marksteve.com/deploy-a-flask-application-inside-a-digitalocean-droplet
+
+how to setup nginx and sockets:
+
+http://stackoverflow.com/questions/13660118/running-a-flask-app-with-nginx-and-gunicorn
+
+how to uninstall and reset nginx if you mess up your installation:
+
+http://stackoverflow.com/questions/12362967/how-can-i-restore-etc-nginx

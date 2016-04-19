@@ -27,7 +27,8 @@ pytz==2014.4
 scipy==0.14.0
 seaborn==0.3.1
 six==1.7.3
-smapp-toolkit==0.1.12
+smapp-toolkit==0.1.34
 smappPy==0.1.8
 tornado==4.0
 wsgiref==0.1.2
+decorator=4.0.9
