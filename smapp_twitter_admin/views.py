@@ -35,28 +35,33 @@ def dashboard():
 
     return render_template('dashboard.html', active_collections = [collections[i] for i,a in enumerate(collections_active) if a],
                                              inactive_collections = [collections[i] for i,a in enumerate(collections_active) if not a])
-
-
+    
 @app.route('/collections/<collection_name>')
 @admin_permission.require(http_exception=403)
 def collections(collection_name):
-    filter_criteria = list(FilterCriteria.find_by_collection_name(collection_name))
-    latest_tweets = Tweet.latest(collection_name, 5)[-5:]
-    count = Tweet.count(collection_name)
-    post_filters = PostFilter.all_for(collection_name)
-    permissions = Permission.all_for(collection_name)
-    show_map_link = any(fc['filter_type'] == 'geo' for fc in filter_criteria)
+    if collection_name in app.config['hidden_collections']:
+        collections, collections_active = get_cached_collection_list()
 
-    return render_template('collections/show.html', collection_name=collection_name,
-                                                    filter_criteria=filter_criteria,
-                                                    latest_tweets=latest_tweets,
-                                                    count=count,
-                                                    post_filters=post_filters,
-                                                    permissions=permissions,
-                                                    default_start_time_histogram=(datetime.utcnow()-timedelta(hours=1)).strftime('%Y-%m-%d %H:%M'),
-                                                    default_end_time_histogram=datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
-                                                    show_map_link=show_map_link,
-                                                    can_edit=EditTwitterCollectionPermission(collection_name).can())
+        return render_template('dashboard.html', active_collections = [collections[i] for i,a in enumerate(collections_active) if a],
+                                             inactive_collections = [collections[i] for i,a in enumerate(collections_active) if not a])
+    else:
+        filter_criteria = list(FilterCriteria.find_by_collection_name(collection_name))
+        latest_tweets = Tweet.latest(collection_name, 5)[-5:]
+        count = Tweet.count(collection_name)
+        post_filters = PostFilter.all_for(collection_name)
+        permissions = Permission.all_for(collection_name)
+        show_map_link = any(fc['filter_type'] == 'geo' for fc in filter_criteria)
+
+        return render_template('collections/show.html', collection_name=collection_name,
+                                                        filter_criteria=filter_criteria,
+                                                        latest_tweets=latest_tweets,
+                                                        count=count,
+                                                        post_filters=post_filters,
+                                                        permissions=permissions,
+                                                        default_start_time_histogram=(datetime.utcnow()-timedelta(hours=1)).strftime('%Y-%m-%d %H:%M'),
+                                                        default_end_time_histogram=datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
+                                                        show_map_link=show_map_link,
+                                                        can_edit=EditTwitterCollectionPermission(collection_name).can())
 
 @app.route('/collections/<collection_name>/graphs/<graph_name>')
 def collection_graph(collection_name, graph_name):

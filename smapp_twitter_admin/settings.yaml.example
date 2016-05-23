@@ -16,6 +16,9 @@ authdb:
     username: username
     password: password
 
+hidden_collections:
+    - collection_to_hide
+
 collection-name-exceptions:
     PostCommunist:
         tweets: russia_tweets
